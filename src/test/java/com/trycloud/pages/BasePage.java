@@ -20,5 +20,8 @@ public class BasePage {
     public WebElement filesModuleButton;
 
 
+    @FindBy(id = "expand")
+    public WebElement profileMenu;
+
 
 }
