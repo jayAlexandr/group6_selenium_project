@@ -19,7 +19,9 @@ public class BasePage {
     @FindBy (xpath = "//li[@data-id='files']")
     public WebElement filesModuleButton;
 
+
     @FindBy(id = "expand")
     public WebElement profileMenu;
+
 
 }
