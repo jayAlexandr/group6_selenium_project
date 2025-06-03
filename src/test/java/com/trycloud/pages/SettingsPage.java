@@ -18,4 +18,15 @@ public class SettingsPage {
     public WebElement emailLabel;
     @FindBy(xpath = "//label[.='Phone number']")
     public WebElement phoneNumberLabel;
+    @FindBy(xpath = "//input[@id='displayname']")
+    public WebElement fullNameInput;
+    @FindBy(xpath = "//input[@id='phone']")
+    public WebElement phoneInput;
+    @FindBy(xpath = "//input[@id='email']")
+    public WebElement emailInput;
+    @FindBy(xpath = "//span[@class='icon-federation-menu icon-link']")
+    public WebElement phoneSettingsIcon;
+    @FindBy (xpath = "//strong[.='Private']")
+    public WebElement privatePhoneSelection;
+
 }
