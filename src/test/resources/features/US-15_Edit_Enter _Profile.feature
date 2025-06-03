@@ -23,9 +23,14 @@ Feature: Edit/Enter Profile Settings Functionality
     And user selects private option
     Then user sees phone number settings changed to private
 
-  Scenario: User cannot pass any characters, except numbers, into the "Phone Number" input box
-    And user enters "WQE-$@#-!W@$" to the phone number field and press Enter
-    Then user sees his phone number is NOT saved
+  Scenario Outline: User cannot pass any characters, except numbers, into the "Phone Number" input box
+    And user enters "<phone>" to the phone number field and press Enter
+    Then user sees his phone number "<phone>" is NOT saved
+    Examples:
+      | phone        |
+      | 241-wrf-WEER |
+      | lsa-241-a@#$ |
+      | @SE-123-FLTl |
 
   Scenario: User can see the current local time under the Locale dropdown
     And user sees correct webelement is displayed
