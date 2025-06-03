@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class BasePage {
+
     public BasePage() {
         PageFactory.initElements(Driver.getDriver(), this);
     }
@@ -13,4 +14,9 @@ public class BasePage {
     public WebElement userIcon;
     @FindBy(xpath = "//a[@href='/index.php/settings/user']")
     public WebElement userSettings;
+
+
+    @FindBy (xpath = "//li[@data-id='files']")
+    public WebElement filesModuleButton;
+
 }
