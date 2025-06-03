@@ -1,3 +1,4 @@
+@dashboard
 Feature: Dashboard Functionality
 
   Background:
@@ -22,8 +23,18 @@ Feature: Dashboard Functionality
     And user click on user profile menu
     Then user can see username
 
-  @wip
   Scenario: user can click on Customize button and user can see status widgets and select any of them
     And user click on Customize button
-    Then user can see status widgets
+    Then user can see status widgets below list
+      | Status            |
+      | Weather           |
+      | Unread mail       |
+      | Important mail    |
+      | Talk mentions     |
+      | Recommended files |
+      | Upcoming cards    |
+      | Recent statuses   |
+      | Upcoming events   |
     Then user can select any of them
+
+

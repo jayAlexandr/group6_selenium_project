@@ -16,7 +16,7 @@ public class US_03_Dashboard_StepDefinitions {
 
     @Then("user should be able to see following modules")
     public void user_user_should_be_able_to_see_following_modules(List<String> expectedModuleNames) {
-        List<String> actualModuleNames = dashboardPage.moduleName(dashboardPage.modulesName, "aria-label");
+        List<String> actualModuleNames = dashboardPage.moduleName(dashboardPage.modulesName);
         Assert.assertEquals(expectedModuleNames, actualModuleNames);
     }
 
@@ -35,13 +35,13 @@ public class US_03_Dashboard_StepDefinitions {
         dashboardPage.customizeButton.click();
     }
 
-    @Then("user can see status widgets")
-    public void user_can_see_status_widgets() {
-        dashboardPage.verifyWidgets();
+    @Then("user can see status widgets below list")
+    public void user_can_see_status_widgets_below_list(List<String> expectedWidgetNames) {
+        dashboardPage.verifyWidgets(expectedWidgetNames);
     }
 
     @Then("user can select any of them")
     public void user_can_select_any_of_them() {
-
+        dashboardPage.verifyWidgetCheckbox();
     }
 }
