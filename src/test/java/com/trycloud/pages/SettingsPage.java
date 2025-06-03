@@ -24,7 +24,7 @@ public class SettingsPage {
     public WebElement phoneInput;
     @FindBy(xpath = "//input[@id='email']")
     public WebElement emailInput;
-    @FindBy(xpath = "//span[@class='icon-federation-menu icon-link']")
+    @FindBy(xpath = "(//span[@class='icon-triangle-s'])[4]")
     public WebElement phoneSettingsIcon;
     @FindBy (xpath = "//strong[.='Private']")
     public WebElement privatePhoneSelection;
