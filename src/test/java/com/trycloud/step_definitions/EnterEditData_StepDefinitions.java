@@ -4,12 +4,19 @@ import com.trycloud.pages.BasePage;
 import com.trycloud.pages.LoginPage;
 import com.trycloud.pages.SettingsPage;
 import com.trycloud.utilities.BrowserUtils;
+import com.trycloud.utilities.Driver;
 import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class EnterEditData_StepDefinitions {
     // creating an object for setting page globally so I can use it later in different steps
@@ -63,7 +70,11 @@ public class EnterEditData_StepDefinitions {
     }
     @Then("user sees phone number settings changed to private")
     public void user_sees_phone_number_settings_changed_to_private() {
-        System.out.println("settingsPage.privatePhoneSelection.getDomAttribute(\"class\") = " + settingsPage.privatePhoneSelection.getDomAttribute("class"));
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+        WebElement icon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("icon-federation-menu")));
+        wait.until(driver1 -> icon.getDomAttribute("class").contains("icon-contacts-dark")); // expecting to see specific icon here
+        String actualClass = icon.getDomAttribute("class");
+        Assert.assertTrue("Expected icon class not found!", actualClass.contains("icon-contacts-dark"));
 
     }
 
