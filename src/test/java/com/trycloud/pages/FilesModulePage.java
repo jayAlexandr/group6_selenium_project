@@ -59,5 +59,10 @@ public class FilesModulePage extends BasePage{
     @FindBy(className = "oc-dialog")
     public WebElement warningMessage;
 
+    //iskandar
+
+    @FindBy(className = "oc-dialog")
+    public WebElement warninggMessage;
+
 
 }
