@@ -1,12 +1,12 @@
 package com.trycloud.step_definitions;
 
-import com.trycloud.pages.FilesModulePage;
+import com.trycloud.pages.FilesPage;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class Add_Favorites_Rename_Comment_StepDefinitions {
 
-    FilesModulePage filesModulePage = new FilesModulePage();
+    FilesPage filesModulePage = new FilesPage();
 
     @When("user clicks on three dots menu in the file")
     public void user_clicks_on_three_dots_menu_in_the_file() {
