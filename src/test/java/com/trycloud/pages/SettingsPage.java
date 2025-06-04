@@ -20,7 +20,7 @@ public class SettingsPage {
     public WebElement phoneNumberLabel;
     @FindBy(xpath = "//input[@id='displayname']")
     public WebElement fullNameInput;
-    @FindBy(xpath = "//input[@id='phone']")
+    @FindBy(xpath = "//input[@type='tel']")
     public WebElement phoneInput;
     @FindBy(xpath = "//input[@id='email']")
     public WebElement emailInput;
@@ -28,5 +28,7 @@ public class SettingsPage {
     public WebElement phoneSettingsIcon;
     @FindBy (xpath = "//strong[.='Private']")
     public WebElement privatePhoneSelection;
+    @FindBy(id="localeexample")
+    public WebElement localDateTime;
 
 }

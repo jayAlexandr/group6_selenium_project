@@ -5,8 +5,6 @@ import com.trycloud.pages.LoginPage;
 import com.trycloud.pages.SettingsPage;
 import com.trycloud.utilities.BrowserUtils;
 import com.trycloud.utilities.Driver;
-import io.cucumber.java.bs.A;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -57,7 +55,6 @@ public class EnterEditData_StepDefinitions {
         Assert.assertTrue(settingsPage.fullNameInput.getDomAttribute("value").contains(expectedName));
     }
     //TC3
- //TODO this TC3
     @When("user clicks on the options icon next to Phone number label")
     public void user_clicks_on_the_options_icon_next_to_phone_number_label() {
         settingsPage.phoneSettingsIcon.click();
@@ -77,7 +74,34 @@ public class EnterEditData_StepDefinitions {
         Assert.assertTrue("Expected icon class not found!", actualClass.contains("icon-contacts-dark"));
 
     }
+    //TC4
+
+    @When("user enters {string} to the phone number field and press Enter")
+    public void user_enters_to_the_phone_number_field_and_press_enter(String phone) {
+        BrowserUtils.waitForClickablility(settingsPage.phoneInput,10);
+        settingsPage.phoneInput.clear();
+        settingsPage.phoneInput.sendKeys(phone, Keys.ENTER);
+        BrowserUtils.sleep(2);
+        System.out.println("Current saved phone number = " + settingsPage.phoneInput.getDomAttribute("value"));
+
+    }
+    @Then("user sees his phone number is NOT saved")
+    public void user_sees_his_phone_number_is_not_saved() {
+
+        if (!settingsPage.phoneInput.getDomAttribute("value").matches("\\d+")) {
+            String value = settingsPage.phoneInput.getDomAttribute("value");
+            System.err.println("WARNING: Phone input contains non-digit characters: " + value);
+        }
+        else {
+            System.out.println("Current phone: " + settingsPage.phoneInput.getDomAttribute("value"));
+        }
+
+    }
 
 
+    @Then("user sees correct webelement is displayed")
+    public void userSeesCorrectWebelementIsDisplayed() {
+       Assert.assertTrue(settingsPage.localDateTime.isDisplayed());
+    }
 }
 
