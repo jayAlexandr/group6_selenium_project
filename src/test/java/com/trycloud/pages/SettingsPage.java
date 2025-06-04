@@ -31,4 +31,12 @@ public class SettingsPage {
     @FindBy(id="localeexample")
     public WebElement localDateTime;
 
+    @FindBy(id = "localeexample-date")
+    public WebElement localDate;
+
+    @FindBy(id = "localeexample-time")
+    public WebElement localTime;
+
+
+
 }
