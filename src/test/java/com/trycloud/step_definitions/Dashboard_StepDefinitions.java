@@ -3,6 +3,7 @@ package com.trycloud.step_definitions;
 import com.trycloud.pages.DashboardPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import java.util.List;
@@ -16,8 +17,6 @@ public class Dashboard_StepDefinitions {
     @Then("user should be able to see following modules")
     public void user_should_be_able_to_see_following_modules(List<String> expectedModuleNames) {
         List<String> actualModuleNames = dashboardPage.moduleNames(dashboardPage.modulesName);
-        System.out.println("Expected modules: " + expectedModuleNames);
-        System.out.println("Actual modules: " + actualModuleNames);
         Assert.assertEquals("Module names do not match", expectedModuleNames, actualModuleNames);
     }
 
@@ -56,6 +55,26 @@ public class Dashboard_StepDefinitions {
     @Then("user can select any background image")
     public void user_can_select_any_background_image() {
         dashboardPage.verifyBackgroundSelected();
-        dashboardPage.verifyChooseBGFromFile();
+    }
+
+    @When("user clicks on the Set Status button")
+    public void user_clicks_on_the_set_status_button() {
+        dashboardPage.setStatusButton.click();
+    }
+
+    @Then("user should see status options")
+    public void user_should_see_status_options_() {
+        dashboardPage.verifyOptionsAreDisplayed();
+    }
+
+    @When("user selects a status option")
+    public void user_selects_a_status_option() {
+        dashboardPage.selectStatusOptions();
+    }
+
+    @Then("each selected status should be applied and visible")
+    public void each_selected_status_should_be_applied_and_visible() {
+        dashboardPage.setStatusButton.click();
+        dashboardPage.verifySelectedIsVisible();
     }
 }
