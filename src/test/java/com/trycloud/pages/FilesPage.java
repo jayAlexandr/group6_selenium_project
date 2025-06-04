@@ -5,9 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class FilesModulePage extends BasePage{
+public class FilesPage extends BasePage{
 
-    public FilesModulePage(){
+    public FilesPage(){
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
@@ -19,6 +19,15 @@ public class FilesModulePage extends BasePage{
 
     @FindBy(id = "file_upload_start")
     public WebElement uploadFileButton;
+
+    @FindBy(xpath = "//a[@data-action='folder']")
+    public WebElement newFolderButton;
+
+    @FindBy(id = "view13-input-folder")
+    public WebElement newFolderNameInput;
+
+    @FindBy(xpath = "//form[@class='filenameform']/input[2]")
+    public WebElement arrowButtonNewFolder;
 
     @FindBy(xpath = "//span[.='1mb-examplefile']")
     public WebElement test1MBFile;
@@ -60,9 +69,5 @@ public class FilesModulePage extends BasePage{
     public WebElement warningMessage;
 
     //iskandar
-
-    @FindBy(className = "oc-dialog")
-    public WebElement warninggMessage;
-
 
 }
