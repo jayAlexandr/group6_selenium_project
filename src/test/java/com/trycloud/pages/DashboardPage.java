@@ -2,6 +2,7 @@ package com.trycloud.pages;
 
 import com.trycloud.utilities.Driver;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,15 +29,17 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//button[@tabindex='0']")
     public List<WebElement> background;
 
-    @FindBy(xpath = "//button[@class='background filepicker']")
-    public WebElement pickFromFile;
+    @FindBy(xpath = "//button[@href='#']")
+    public WebElement setStatusButton;
 
-    @FindBy(xpath = "//td[@class='filename']")
-    public WebElement image;
+    @FindBy(xpath = "//div[@class='user-status-online-select']")
+    public List<WebElement> statusOptionElements;
 
-    @FindBy(xpath = "//button[@class='primary']")
-    public WebElement choose;
+    @FindBy(xpath = "//button[@class='status-buttons__primary primary']")
+    public WebElement setStatus;
 
+    @FindBy(xpath = "//button[contains(@class, 'user-status-menu-item__toggle')]")
+    public WebElement statusVisible;
 
     public List<String> moduleNames(List<WebElement> webElement) {
         List<String> names = new ArrayList<>();
@@ -67,7 +70,7 @@ public class DashboardPage extends BasePage {
         JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
         js.executeScript("window.scrollBy(0, 200);");
         for (WebElement eachImage : background) {
-            Assert.assertTrue(eachImage.isEnabled());
+            Assert.assertTrue("Background is not enabled: " + eachImage.getAttribute("style"), eachImage.isEnabled());
         }
     }
 
@@ -80,16 +83,41 @@ public class DashboardPage extends BasePage {
             clickWithJS(eachImage);
             String actualBackground = eachImage.getAttribute("class");
             String expectedBackground = "background";
-            System.out.println(actualBackground);
-            Assert.assertTrue("Background not selected: " + text, actualBackground.contains(expectedBackground));
+            Assert.assertTrue("Background is not selected: " + text, actualBackground.contains(expectedBackground));
         }
     }
 
-    public void verifyChooseBGFromFile() {
-        customizeButton.click();
-        pickFromFile.click();
-        image.click();
-        choose.click();
-        Assert.assertTrue(image.isDisplayed());
+    public void verifyOptionsAreDisplayed() {
+        for (WebElement eachOption : statusOptionElements) {
+            waitForVisibility(eachOption, 2);
+            Assert.assertTrue("Status option is not displayed: " + eachOption.getText(), eachOption.isDisplayed());
+        }
     }
+
+    public void selectStatusOptions() {
+        for (WebElement eachOption : statusOptionElements) {
+            waitForClickablility(eachOption, 2);
+            eachOption.click();
+            sleep(1);
+        }
+        setStatus.click();
+    }
+
+    public void verifySelectedIsVisible() {
+        List<String> actualOptions = new ArrayList<>();
+        List<String> expectedOption = new ArrayList<>();
+        for (int i = 0; i < statusOptionElements.size(); i++) {
+            List<WebElement> options = this.statusOptionElements;
+            WebElement eachOption = options.get(i);
+            eachOption.click();
+            sleep(1);
+            setStatus.click();
+            actualOptions.add(eachOption.getText().split("\n")[0].trim());
+            expectedOption.add(setStatusButton.getText());
+            setStatusButton.click();
+        }
+        Assert.assertEquals(expectedOption, actualOptions);
+    }
+    //TODO: Look in to how to verify clicking
 }
+
