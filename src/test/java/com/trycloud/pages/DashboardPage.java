@@ -1,25 +1,18 @@
 package com.trycloud.pages;
 
-
 import com.trycloud.utilities.BrowserUtils;
 import com.trycloud.utilities.Driver;
 import org.junit.Assert;
-import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.trycloud.utilities.BrowserUtils.*;
 
-
 public class DashboardPage extends BasePage {
-
-    public DashboardPage() {
-        PageFactory.initElements(Driver.getDriver(), this);
-    }
 
     @FindBy(xpath = "//ul[@id='appmenu']//a")
     public List<WebElement> modulesName;
@@ -30,42 +23,55 @@ public class DashboardPage extends BasePage {
     @FindBy(partialLinkText = "Customize")
     public WebElement customizeButton;
 
-    @FindBy(xpath = "//label[contains(@for,'checkbox')]")
+    @FindBy(xpath = "//input[@type='checkbox']")
     public List<WebElement> widgetCheckbox;
 
-    @FindBy(css = "button.background")
+    @FindBy(xpath = "//button[@tabindex='0']")
     public List<WebElement> background;
 
-    public List<String> moduleName(List<WebElement> webElement) {
+    @FindBy(className = "oc-dialog-close")
+    public WebElement exit;
+
+    public List<String> moduleNames(List<WebElement> webElement) {
         List<String> names = new ArrayList<>();
         for (WebElement each : webElement) {
-            String label = each.getAttribute("aria-label");
-            names.add(label);
+            String module = each.getAttribute("aria-label");
+            names.add(module);
         }
         return names;
     }
 
-    public void verifyWidgets(List<String> expectedWidgetNames) {
-        List<WebElement> widgets = this.widgetCheckbox;
-        List<String> actualWidgetNames = new ArrayList<>();
-        for (WebElement each : widgets) {
-            waitForVisibility(each, 10);
-            actualWidgetNames.add(each.getText());
+    public void verifyWidgetsIsDisplayed() {
+        for (WebElement each : widgetCheckbox) {
+            Assert.assertTrue(each.isSelected());
         }
-        Assert.assertEquals(expectedWidgetNames, actualWidgetNames);
     }
 
-    public void verifyWidgetCheckbox() {
-        List<WebElement> labels = this.widgetCheckbox;
-        for (WebElement label : labels) {
-            String forAttribute = label.getDomAttribute("for");
-            WebElement checkbox = Driver.getDriver().findElement(By.id(forAttribute));
-            if (!checkbox.isSelected()) {
-                waitForClickablility(label, 10);
-                label.click();
+    public void checkboxesSelected() {
+        for (WebElement eachCheckbox : widgetCheckbox) {
+            if (eachCheckbox.isSelected()) {
+                continue;
             }
-            Assert.assertTrue(checkbox.isSelected());
-            //"Checkbox not selected: " + forAttribute,
+            BrowserUtils.clickWithJS(eachCheckbox);
+        }
+    }
+
+    public void verifyBackgroundIsDisplay() {
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+        js.executeScript("window.scrollBy(0, 200);");
+        for (WebElement eachImage : background) {
+            Assert.assertTrue(eachImage.isEnabled());
+        }
+    }
+
+    public void verifyBackgroundSelected() {
+        for (WebElement eachImage : background) {
+            String text = eachImage.getText();
+            if (text.contains("Pick from files")) {
+                continue;
+            }
+            clickWithJS(eachImage);
         }
     }
 }
+
