@@ -1,17 +1,15 @@
 package com.trycloud.step_definitions;
 
-import com.trycloud.pages.FilesModulePage;
+import com.trycloud.pages.FilesPage;
 import com.trycloud.utilities.BrowserUtils;
-import com.trycloud.utilities.Driver;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 
 public class UploadEditDeleteFile_StepDefinitions {
 
-    FilesModulePage filesModulePage = new FilesModulePage();
+    FilesPage filesModulePage = new FilesPage();
 
     //==========Acceptance Criteria 1 User can upload a file==========
 
@@ -173,5 +171,27 @@ public class UploadEditDeleteFile_StepDefinitions {
     }
 
     //==========Acceptance Criteria 2 User can create a new folder==========
+
+    @When("user click on the New folder in submenu")
+    public void user_click_on_the_new_folder_in_submenu() {
+        filesModulePage.newFolderButton.click();
+    }
+    @When("user enter New folder name")
+    public void user_enter_new_folder_name() {
+        filesModulePage.newFolderNameInput.sendKeys("Test folder");
+    }
+    @When("user click on arrow button")
+    public void user_click_on_arrow_button() {
+        filesModulePage.arrowButtonNewFolder.click();
+    }
+    @Then("user verify that created New folder is displayed under the item list")
+    public void user_verify_that_created_new_folder_is_displayed_under_the_item_list() {
+        Assert.assertTrue(filesModulePage.testFolder.isDisplayed());
+    }
+
+    @When("user enter New folder name and press Enter key")
+    public void user_enter_new_folder_name_and_press_enter_key() {
+        filesModulePage.newFolderNameInput.sendKeys("Test folder" + Keys.ENTER);
+    }
 
 }
