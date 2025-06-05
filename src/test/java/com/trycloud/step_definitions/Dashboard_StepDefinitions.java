@@ -77,4 +77,5 @@ public class Dashboard_StepDefinitions {
         dashboardPage.setStatusButton.click();
         dashboardPage.verifySelectedIsVisible();
     }
+
 }
