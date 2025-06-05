@@ -80,4 +80,32 @@ public class FilesPage extends BasePage{
 
     //iskandar
 
+    @FindBy (xpath = "//tr[@data-id='178201']")
+    public WebElement fileNameBox;
+
+    @FindBy (xpath = "//tr[@data-id='178201']/td[2]/a/span[1]/span[1]")
+    public WebElement fileNameInputBox;
+
+    @FindBy (xpath = "//tr[@data-id='178201']/td[2]/a/span[2]/a[2]")
+    public WebElement fileThreeDots;
+
+    @FindBy (xpath = "//li[@class=' action-favorite-container']")
+    public WebElement addFavoriteButton;
+
+    @FindBy (xpath = "//li[@class=' action-details-container']")
+    public WebElement detailsButton;
+
+    @FindBy (xpath = "//li[@class=' action-rename-container']")
+    public WebElement renameButton;
+
+    @FindBy (xpath = "//li[@data-id='favorites']")
+    public WebElement favoritesFolder;
+
+    @FindBy (xpath = "//tr[@data-id='178201']/td[1]/a/span[2]/a[2]")
+    public WebElement threeDotsInFavorites;
+
+
+
+
+
 }

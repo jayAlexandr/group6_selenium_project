@@ -7,13 +7,13 @@ Feature: Add to Favorites/Rename/Comment on File Functionality
     When user navigate to files module
     Then user verify files module page is displayed
 
-  @us14
+
   Scenario: User can add any file to favorites from its own three dots menu
     When user clicks on three dots menu in the file
     Then user can click on the menu option Add to favorites
     And click to favorites folder to check new added file is displayed
 
-
+  @us14
   Scenario: User can rename any file from its own three dots menu
     When user clicks on three dots menu in the file
     Then user can click on the menu option to Rename
