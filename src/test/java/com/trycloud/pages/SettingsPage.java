@@ -18,4 +18,25 @@ public class SettingsPage {
     public WebElement emailLabel;
     @FindBy(xpath = "//label[.='Phone number']")
     public WebElement phoneNumberLabel;
+    @FindBy(xpath = "//input[@id='displayname']")
+    public WebElement fullNameInput;
+    @FindBy(xpath = "//input[@type='tel']")
+    public WebElement phoneInput;
+    @FindBy(xpath = "//input[@id='email']")
+    public WebElement emailInput;
+    @FindBy(xpath = "(//span[@class='icon-triangle-s'])[4]")
+    public WebElement phoneSettingsIcon;
+    @FindBy (xpath = "//strong[.='Private']")
+    public WebElement privatePhoneSelection;
+    @FindBy(id="localeexample")
+    public WebElement localDateTime;
+
+    @FindBy(id = "localeexample-date")
+    public WebElement localDate;
+
+    @FindBy(id = "localeexample-time")
+    public WebElement localTime;
+
+
+
 }
