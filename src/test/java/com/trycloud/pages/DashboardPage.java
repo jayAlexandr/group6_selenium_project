@@ -97,7 +97,6 @@ public class DashboardPage extends BasePage {
             eachOption.click();
             sleep(1);
             String classAfterClick = eachOption.getAttribute("class");
-
             Assert.assertTrue("Button should have 'active' class after click", classAfterClick.contains("status"));
         }
         setStatus.click();
@@ -112,12 +111,15 @@ public class DashboardPage extends BasePage {
             eachOption.click();
             sleep(1);
             setStatus.click();
+
             actualOptions.add(eachOption.getText().split("\n")[0].trim());
             expectedOption.add(setStatusButton.getText());
+
             setStatusButton.click();
         }
         Assert.assertEquals(expectedOption, actualOptions);
     }
-    //TODO: Look in to how to verify clicking
+
+    //TODO: See status message and select
 }
 
