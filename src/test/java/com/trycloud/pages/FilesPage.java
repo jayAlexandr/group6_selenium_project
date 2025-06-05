@@ -62,11 +62,21 @@ public class FilesPage extends BasePage{
     @FindBy(xpath = "//span[.='textFile2']")
     public WebElement testTextFile2;
 
+    @FindBy(xpath = "//span[.='Test folder']")
+    public WebElement testFolder;
+
+    @FindBy(xpath = "//span[.='~!@#$%^&*()_+-={}[]|,<>.?']")
+    public WebElement testSpecChar;
+
     @FindBy(xpath = "//div[@class='toastify on dialogs error toastify-right toastify-top']")
     public WebElement errorMessage;
 
     @FindBy(className = "oc-dialog")
     public WebElement warningMessage;
+
+    @FindBy(className = "tooltip-inner")
+    public WebElement folderExistMessage;
+
 
     //iskandar
 
