@@ -120,6 +120,6 @@ public class DashboardPage extends BasePage {
         Assert.assertEquals(expectedOption, actualOptions);
     }
 
-    //TODO: See status message and select
+    //TODO: Status message and select
 }
 
