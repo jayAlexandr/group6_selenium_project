@@ -38,9 +38,6 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//button[@class='status-buttons__primary primary']")
     public WebElement setStatus;
 
-    @FindBy(xpath = "//button[contains(@class, 'user-status-menu-item__toggle')]")
-    public WebElement statusVisible;
-
     public List<String> moduleNames(List<WebElement> webElement) {
         List<String> names = new ArrayList<>();
         for (WebElement each : webElement) {
@@ -99,6 +96,9 @@ public class DashboardPage extends BasePage {
             waitForClickablility(eachOption, 2);
             eachOption.click();
             sleep(1);
+            String classAfterClick = eachOption.getAttribute("class");
+
+            Assert.assertTrue("Button should have 'active' class after click", classAfterClick.contains("status"));
         }
         setStatus.click();
     }
