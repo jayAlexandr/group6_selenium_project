@@ -23,5 +23,9 @@ public class BasePage {
     @FindBy(id = "expand")
     public WebElement profileMenu;
 
+    @FindBy(xpath = "//ul[@id='appmenu']/li[7]")
+    public WebElement contactsTab;
+
+
 
 }
