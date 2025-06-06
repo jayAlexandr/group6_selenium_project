@@ -2,7 +2,6 @@ package com.trycloud.pages;
 
 import com.trycloud.utilities.Driver;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -38,6 +37,12 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//button[@class='status-buttons__primary primary']")
     public WebElement setStatus;
 
+    @FindBy(xpath = "//div[@class='predefined-status']")
+    public List<WebElement> messageOptions;
+
+    @FindBy(xpath = "//div[@class='status-buttons']//button[1]")
+    public WebElement clearStatusMessage;
+
     public List<String> moduleNames(List<WebElement> webElement) {
         List<String> names = new ArrayList<>();
         for (WebElement each : webElement) {
@@ -59,7 +64,7 @@ public class DashboardPage extends BasePage {
                 continue;
             }
             clickWithJS(eachCheckbox);
-            Assert.assertTrue(eachCheckbox.isSelected());
+            Assert.assertTrue("Widget is not selected: " + eachCheckbox.getText(), eachCheckbox.isSelected());
         }
     }
 
@@ -97,12 +102,12 @@ public class DashboardPage extends BasePage {
             eachOption.click();
             sleep(1);
             String classAfterClick = eachOption.getAttribute("class");
-            Assert.assertTrue("Button should have 'active' class after click", classAfterClick.contains("status"));
+            Assert.assertTrue("Status option is not select" + eachOption.getText(), classAfterClick.contains("status"));
         }
         setStatus.click();
     }
 
-    public void verifySelectedIsVisible() {
+    public void verifyStatusIsVisible() {
         List<String> actualOptions = new ArrayList<>();
         List<String> expectedOption = new ArrayList<>();
         for (int i = 0; i < statusOptionElements.size(); i++) {
@@ -120,6 +125,44 @@ public class DashboardPage extends BasePage {
         Assert.assertEquals(expectedOption, actualOptions);
     }
 
-    //TODO: Status message and select
+    public void verifyMessageOptions() {
+        for (WebElement eachMessage : messageOptions) {
+            Assert.assertTrue("Status message option is not displayed: " + eachMessage.getText(), eachMessage.isDisplayed());
+            sleep(1);
+        }
+    }
+
+    public void statusMessageOptions() {
+        for (WebElement message : messageOptions) {
+            waitForClickablility(message, 2);
+            message.click();
+            sleep(1);
+            String classAfterClick = message.getAttribute("class");
+            Assert.assertTrue("Status message option is not select" + message.getText(), classAfterClick.contains("predefined-status"));
+        }
+        setStatus.click();
+    }
+
+    public void verifyMessageIsVisible() {
+        List<String> actualOptions = new ArrayList<>();
+        List<String> expectedOption = new ArrayList<>();
+        for (int i = 0; i < messageOptions.size(); i++) {
+            List<WebElement> options = messageOptions;
+            WebElement eachOption = options.get(i);
+            eachOption.click();
+            sleep(1);
+            setStatus.click();
+            String fullText = eachOption.getText().trim();
+
+            if (fullText.contains("\n")) {
+                String[] parts = fullText.split("\n");
+                fullText = parts[0] + " " + parts[1];
+            }
+            actualOptions.add(fullText);
+            setStatusButton.click();
+            expectedOption.add(setStatusButton.getText());
+        }
+        Assert.assertEquals("Status messages don't match", expectedOption, actualOptions);
+    }
 }
 
