@@ -8,6 +8,7 @@ import org.junit.Assert;
 
 import java.util.List;
 
+import static com.trycloud.utilities.BrowserUtils.clickWithJS;
 import static com.trycloud.utilities.BrowserUtils.waitForVisibility;
 
 public class Dashboard_StepDefinitions {
@@ -64,6 +65,8 @@ public class Dashboard_StepDefinitions {
 
     @Then("user should see status options")
     public void user_should_see_status_options_() {
+        clickWithJS(dashboardPage.clearStatusMessage);
+        dashboardPage.setStatusButton.click();
         dashboardPage.verifyOptionsAreDisplayed();
     }
 
@@ -75,7 +78,22 @@ public class Dashboard_StepDefinitions {
     @Then("each selected status should be applied and visible")
     public void each_selected_status_should_be_applied_and_visible() {
         dashboardPage.setStatusButton.click();
-        dashboardPage.verifySelectedIsVisible();
+        dashboardPage.verifyStatusIsVisible();
     }
 
+    @Then("user should see status message options")
+    public void user_should_see_status_message_options() {
+        dashboardPage.verifyMessageOptions();
+    }
+
+    @When("user selects a status message option")
+    public void user_selects_a_status_message_option() {
+        dashboardPage.statusMessageOptions();
+    }
+
+    @Then("the selected status message should be applied and visible")
+    public void the_selected_status_message_should_be_applied_and_visible() {
+        dashboardPage.setStatusButton.click();
+        dashboardPage.verifyMessageIsVisible();
+    }
 }
