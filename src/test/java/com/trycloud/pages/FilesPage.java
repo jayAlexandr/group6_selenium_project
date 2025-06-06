@@ -1,6 +1,8 @@
 package com.trycloud.pages;
 
+import com.trycloud.utilities.BrowserUtils;
 import com.trycloud.utilities.Driver;
+import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -13,6 +15,9 @@ public class FilesPage extends BasePage{
 
     @FindBy(linkText = "All files")
     public WebElement allFilesSelection;
+
+    @FindBy(linkText = "Deleted files")
+    public WebElement deletedFilesSelection;
 
     @FindBy(xpath = "//a[@class='button new']")
     public WebElement plusButton;
@@ -76,6 +81,63 @@ public class FilesPage extends BasePage{
 
     @FindBy(className = "tooltip-inner")
     public WebElement folderExistMessage;
+
+    @FindBy(xpath = "//tr[@data-file='textFile1.txt']//a[@data-action='menu']")
+    public WebElement threeDotMenuTF1;
+
+    @FindBy(xpath = "//tr[@data-file='7mb.zip']//a[@data-action='menu']")
+    public WebElement threeDotMenu7MB;
+
+    @FindBy(xpath = "//a[@data-action='MoveCopy']")
+    public WebElement moveOrCopyButton;
+
+    @FindBy(xpath = "//a[@data-action='Delete']")
+    public WebElement deleteFileButton;
+
+    @FindBy(xpath = "//tr[@data-file='textFile2.txt']/td[@class='selection']")
+    public WebElement itemCheckBoxTF2;
+
+    @FindBy(xpath = "//tr[@data-file='1mb-examplefile.txt']/td[@class='selection']")
+    public WebElement itemCheckBox1MB;
+
+    @FindBy(xpath = "//tr[@data-file='8mb.rar']/td[@class='selection']")
+    public WebElement itemCheckBox8MB;
+
+    @FindBy(xpath = "//tr[@data-file='9mb.iso']/td[@class='selection']")
+    public WebElement itemCheckBox9MB;
+
+    @FindBy(className = "actions-selected")
+    public WebElement actionsButton;
+
+    @FindBy(xpath = "//a[@data-action='copyMove']")
+    public WebElement moveOrCopyActions;
+
+    @FindBy(xpath = "//a[@data-action='delete']")
+    public WebElement deleteActions;
+
+    @FindBy(xpath = "//div[@class='oc-dialog']//button")
+    public WebElement ocCopyButton;
+
+    @FindBy(xpath = "//button[.='Move']")
+    public WebElement ocMoveButton;
+
+    @FindBy (xpath = "//div[@class='oc-dialog']//button")
+    public WebElement ocCopyTo;
+
+    @FindBy (xpath = "//button[@class='primary']")
+    public WebElement ocMoveTo;
+
+    @FindBy(xpath = "//tr[@data-entryname='Test folder']")
+    public WebElement ocTestFolder;
+
+    public void itemIsDisplayed(WebElement file){
+        BrowserUtils.waitFor(2);
+        Assert.assertTrue(file.isDisplayed());
+    }
+    public void messageIsDisplayed(WebElement file, String message){
+        BrowserUtils.waitFor(2);
+        Assert.assertTrue(file.getText().contains(message));
+    }
 
 
     //iskandar
