@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactsPage {
@@ -23,6 +24,23 @@ public class ContactsPage {
     @FindBy(id = "contact-title")
     public  WebElement newContact_TitleBox;
 
-    @FindBy(xpath = "//div[@class='vue-recycle-scroller__item-view']")
+    @FindBy(xpath = "//div[@class='app-content-list-item-line-one']")
     public List<WebElement> contactsList;
+
+    @FindBy(id = "everyone")
+    public WebElement allContacts;
+
+
+    public List<String> webeElementList_To_StringList(List<WebElement> listOfWebE){
+
+        List<String> listOfNames = new ArrayList<>();
+
+        for (WebElement each : listOfWebE) {
+
+            listOfNames.add(each.getText());
+
+        }
+
+        return listOfNames;
+    }
 }

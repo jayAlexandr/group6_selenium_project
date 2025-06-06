@@ -13,13 +13,14 @@ Feature: Contacts Module Functionality
   Scenario Outline: create new contacts
     When user clicks the Contacts Tab
     And user clicks the New contact button
-    And user write the "<firstName>" of New Contact
-    And user write the "<lastName>" of New Contact
+    And user write the "<firstName>" in the company box
+    And user write the "<lastName>" in the title box
     Then user can see the "<expectedNewContact>" in the All contacts list
 
     Examples:
       | firstName | lastName | expectedNewContact |
-      | John       | Smith     | John Smith           |
-      #| Marry      | Jones     | Marry Jones          |
-      #| David      | Williams  | David Williams       |
+      | Marry     | KL       | Marry              |
+      | David     | Williams | David              |
+      | John      | Smith    | John               |
+
 
