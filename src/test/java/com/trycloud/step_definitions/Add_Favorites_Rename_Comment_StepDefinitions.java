@@ -86,6 +86,14 @@ public class Add_Favorites_Rename_Comment_StepDefinitions {
     }
 
 
+    @When("user navigate to files module")
+    public void userNavigateToFilesModule() {
+        filesModulePage.filesModuleButton.click();
+    }
 
+    @Then("user verify files module page is displayed")
+    public void userVerifyFilesModulePageIsDisplayed() {
+        filesModulePage.allFilesSelection.isDisplayed();
 
+    }
 }
