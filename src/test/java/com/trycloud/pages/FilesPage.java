@@ -3,9 +3,12 @@ package com.trycloud.pages;
 import com.trycloud.utilities.BrowserUtils;
 import com.trycloud.utilities.Driver;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 public class FilesPage extends BasePage{
 
@@ -34,38 +37,8 @@ public class FilesPage extends BasePage{
     @FindBy(xpath = "//form[@class='filenameform']/input[2]")
     public WebElement arrowButtonNewFolder;
 
-    @FindBy(xpath = "//span[.='1mb-examplefile']")
-    public WebElement test1MBFile;
-
-    @FindBy(xpath = "//span[.='2mb-jpg-test-file']")
-    public WebElement test2MBFile;
-
-    @FindBy(xpath = "//span[.='3-mb-sample-pdf-file']")
-    public WebElement test3MBFile;
-
-    @FindBy(xpath = "//span[.='4mb']")
-    public WebElement test4MBFile;
-
-    @FindBy(xpath = "//span[.='5mb']")
-    public WebElement test5MBFile;
-
-    @FindBy(xpath = "//span[.='6mb-example-video-file']")
-    public WebElement test6MBFile;
-
-    @FindBy(xpath = "//span[.='7mb']")
-    public WebElement test7MBFile;
-
-    @FindBy(xpath = "//span[.='8mb']")
-    public WebElement test8MBFile;
-
-    @FindBy(xpath = "//span[.='9mb']")
-    public WebElement test9MBFile;
-
     @FindBy(xpath = "//span[.='textFile1']")
     public WebElement testTextFile1;
-
-    @FindBy(xpath = "//span[.='textFile2']")
-    public WebElement testTextFile2;
 
     @FindBy(xpath = "//span[.='Test folder']")
     public WebElement testFolder;
@@ -82,29 +55,11 @@ public class FilesPage extends BasePage{
     @FindBy(className = "tooltip-inner")
     public WebElement folderExistMessage;
 
-    @FindBy(xpath = "//tr[@data-file='textFile1.txt']//a[@data-action='menu']")
-    public WebElement threeDotMenuTF1;
-
-    @FindBy(xpath = "//tr[@data-file='7mb.zip']//a[@data-action='menu']")
-    public WebElement threeDotMenu7MB;
-
     @FindBy(xpath = "//a[@data-action='MoveCopy']")
     public WebElement moveOrCopyButton;
 
     @FindBy(xpath = "//a[@data-action='Delete']")
     public WebElement deleteFileButton;
-
-    @FindBy(xpath = "//tr[@data-file='textFile2.txt']/td[@class='selection']")
-    public WebElement itemCheckBoxTF2;
-
-    @FindBy(xpath = "//tr[@data-file='1mb-examplefile.txt']/td[@class='selection']")
-    public WebElement itemCheckBox1MB;
-
-    @FindBy(xpath = "//tr[@data-file='8mb.rar']/td[@class='selection']")
-    public WebElement itemCheckBox8MB;
-
-    @FindBy(xpath = "//tr[@data-file='9mb.iso']/td[@class='selection']")
-    public WebElement itemCheckBox9MB;
 
     @FindBy(className = "actions-selected")
     public WebElement actionsButton;
@@ -115,12 +70,6 @@ public class FilesPage extends BasePage{
     @FindBy(xpath = "//a[@data-action='delete']")
     public WebElement deleteActions;
 
-    @FindBy(xpath = "//div[@class='oc-dialog']//button")
-    public WebElement ocCopyButton;
-
-    @FindBy(xpath = "//button[.='Move']")
-    public WebElement ocMoveButton;
-
     @FindBy (xpath = "//div[@class='oc-dialog']//button")
     public WebElement ocCopyTo;
 
@@ -130,13 +79,64 @@ public class FilesPage extends BasePage{
     @FindBy(xpath = "//tr[@data-entryname='Test folder']")
     public WebElement ocTestFolder;
 
+    @FindBy(xpath = "//tr[@data-type='file']")
+    public List<WebElement> listOfFiles;
+
+    @FindBy(xpath = "//tr[@data-type='dir']")
+    public List<WebElement> listOfFolders;
+
+    @FindBy(className = "fileinfo")
+    public WebElement filesCountTotal;
+
+    @FindBy(className = "dirinfo")
+    public WebElement foldersCountTotal;
+
+    public int getActualFileCount() {
+        return listOfFiles.size();
+    }
+
+    public int getActualFolderCount() {
+        return listOfFolders.size();
+    }
+
+    public int getExpectedFileCount() {
+        return extractNumberFromText(filesCountTotal.getText());
+    }
+
+    public int getExpectedFolderCount() {
+        return extractNumberFromText(foldersCountTotal.getText());
+    }
+
+    public int extractNumberFromText(String text) {
+        return Integer.parseInt(text.replaceAll("[^0-9]", ""));
+    }
+
+    public void verifyFileIsDisplayed(String fileName) {
+        BrowserUtils.sleep(2);
+        String fileXpath = "//span[.='" + fileName + "']";
+        WebElement fileElement = Driver.getDriver().findElement(By.xpath(fileXpath));
+        BrowserUtils.waitForVisibility(fileElement, 5);
+        Assert.assertTrue(fileElement.isDisplayed());
+    }
+
     public void itemIsDisplayed(WebElement file){
         BrowserUtils.waitFor(2);
         Assert.assertTrue(file.isDisplayed());
     }
-    public void messageIsDisplayed(WebElement file, String message){
-        BrowserUtils.waitFor(2);
-        Assert.assertTrue(file.getText().contains(message));
+
+    public void messageIsDisplayed(WebElement element, String expectedMessage) {
+        BrowserUtils.waitForVisibility(element, 20);
+        Assert.assertTrue(element.getText().contains(expectedMessage));
+    }
+
+    public WebElement getThreeDotMenu(String fileName) {
+        String xpath = "//tr[@data-file='" + fileName + "']//a[@data-action='menu']";
+        return Driver.getDriver().findElement(By.xpath(xpath));
+    }
+
+    public WebElement getCheckBox(String fileName) {
+        String xpath = "//tr[@data-file='" + fileName + "']/td[@class='selection']";
+        return Driver.getDriver().findElement(By.xpath(xpath));
     }
 
 
