@@ -142,13 +142,13 @@ public class FilesPage extends BasePage{
 
     //iskandar
 
-    @FindBy (xpath = "//tr[@data-id='178201']")
+    @FindBy (xpath = "//tr[@data-id='180499']")
     public WebElement fileNameBox;
 
-    @FindBy (xpath = "//tr[@data-id='178201']/td[2]/a/span[1]/span[1]")
+    @FindBy (xpath = "//tr[@data-id='180499']/td[2]/a/span[1]/span[1]")
     public WebElement fileNameInputBox;
 
-    @FindBy (xpath = "//tr[@data-id='178201']/td[2]/a/span[2]/a[2]")
+    @FindBy (xpath = "//tr[@data-id='180499']/td[2]/a/span[2]/a[2]")
     public WebElement fileThreeDots;
 
     @FindBy (xpath = "//li[@class=' action-favorite-container']")
@@ -163,8 +163,26 @@ public class FilesPage extends BasePage{
     @FindBy (xpath = "//li[@data-id='favorites']")
     public WebElement favoritesFolder;
 
-    @FindBy (xpath = "//tr[@data-id='178201']/td[1]/a/span[2]/a[2]")
+    @FindBy (xpath = "//tr[@data-id='180499']/td[1]/a/span[2]/a[2]")
     public WebElement threeDotsInFavorites;
+
+    @FindBy (xpath = "//a[@id='commentsTabView']")
+    public WebElement commentButton;
+
+    @FindBy (xpath = "//div[@data-placeholder='New comment …']")
+    public WebElement commentInputBox;
+
+    @FindBy (xpath = "//input[@class='submit icon-confirm has-tooltip']")
+    public WebElement commentSubmitButton;
+
+    @FindBy (xpath = "//a[@class='action more icon icon-more has-tooltip']")
+    public WebElement threeDotsInComments;
+
+    @FindBy (xpath = "(//a[@class='menuitem action delete permanent'])[2]")
+    public WebElement deleteButtonInComments;
+
+    @FindBy (xpath = "(//div[@class='emptycontent'])[2]")
+    public WebElement noComments;
 
 
 

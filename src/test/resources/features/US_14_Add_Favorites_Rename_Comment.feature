@@ -1,4 +1,4 @@
-
+@us14
 Feature: Add to Favorites/Rename/Comment on File Functionality
 
   Background: For all scenarios user is logged in and navigated to Files page
@@ -13,10 +13,13 @@ Feature: Add to Favorites/Rename/Comment on File Functionality
     Then user can click on the menu option Add to favorites
     And click to favorites folder to check new added file is displayed
 
-  @us14
+
   Scenario: User can rename any file from its own three dots menu
     When user clicks on three dots menu in the file
-    Then user can click on the menu option to Rename
+    And user can click on the menu option to Rename
+    And user can Rename any file
+    Then user should be able to see renamed file
+
 
   Scenario: User can put some comments on any file from the file details menu opened right side
     When user clicks on three dots menu in the file
@@ -24,6 +27,7 @@ Feature: Add to Favorites/Rename/Comment on File Functionality
     Then user can click on the Comments
     And user can leave any comment in the comments input box
     Then user can click to post button
+
 
   Scenario: User can delete the comments made on any file from the the file details menu opened right side
     When user clicks on three dots menu in the file
