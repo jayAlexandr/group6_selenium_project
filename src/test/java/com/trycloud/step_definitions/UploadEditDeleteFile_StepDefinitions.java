@@ -32,7 +32,7 @@ public class UploadEditDeleteFile_StepDefinitions {
 
     @When("user upload {string} file from the computer")
     public void uploadFile(String fileKey) {
-        filesPage.uploadFileButton.sendKeys(ConfigurationReader.getProperty(fileKey));
+        filesPage.uploadFileButton.sendKeys(System.getProperty("user.dir") + ConfigurationReader.getProperty(fileKey));
     }
 
     @Then("user verify uploaded {string} is visible under the item list")
