@@ -53,6 +53,41 @@ public class ContactsPage {
     @FindBy(xpath = "(//div[@class='popover__inner']//div//li)[3]//span[.='Delete']")
     public WebElement deleteButton;
 
+    @FindBy(id = "newgroup")
+    public WebElement CreateNewGroup_icon;
+
+    @FindBy(xpath = "//span[@class='action-input']//input[@type='text']")
+    public WebElement addGroupName_box;
+
+    @FindBy(xpath = "//input[@placeholder='Add contact in group']")
+    public WebElement Group_button;
+
+    @FindBy(xpath = "//input[@placeholder='Add contact in group']/../following-sibling::*//li/span/div")
+    public List<WebElement> listOfGroups_Options;
+
+    @FindBy(xpath = "//li[@id='everyone']/../li//span")
+    public List<WebElement> elementsInFirstColumn;
+
+    // get the groups' names in the first column
+    public List<String> listGroups_In_FirstColumn(){
+
+        int elementOfFirstColumn = elementsInFirstColumn.size();
+        //System.out.println("elementOfFirstColumn = " + elementOfFirstColumn);
+
+        List<String> listOfGroups_FirstColumn = new ArrayList<>();
+
+        for (int i = 2; i < elementOfFirstColumn-1; i++) {
+
+            listOfGroups_FirstColumn.add(elementsInFirstColumn.get(i).
+                    getAttribute("title"));
+
+        }
+
+        return listOfGroups_FirstColumn;
+
+    }
+
+
     public List<String> webeElementList_To_StringList(List<WebElement> listOfWebE){
 
         List<String> listOfNames = new ArrayList<>();
