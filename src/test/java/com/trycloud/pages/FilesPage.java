@@ -12,10 +12,6 @@ import java.util.List;
 
 public class FilesPage extends BasePage{
 
-    public FilesPage(){
-        PageFactory.initElements(Driver.getDriver(),this);
-    }
-
     @FindBy(linkText = "All files")
     public WebElement allFilesSelection;
 
@@ -25,7 +21,7 @@ public class FilesPage extends BasePage{
     @FindBy(xpath = "//a[@class='button new']")
     public WebElement plusButton;
 
-    @FindBy(id = "file_upload_start")
+    @FindBy(css = "#file_upload_start")
     public WebElement uploadFileButton;
 
     @FindBy(xpath = "//a[@data-action='folder']")
