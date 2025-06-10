@@ -1,6 +1,7 @@
 package com.trycloud.step_definitions;
 
 import com.trycloud.pages.BasePage;
+import com.trycloud.pages.CalendarPage;
 import com.trycloud.pages.LoginPage;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -16,22 +17,22 @@ public class CalendarViewAddDelete_StepDefinitions {
         //After login is finished creating base page object
         BasePage basePage = new BasePage();
         basePage.calendar.click();
-
     }
+
+    CalendarPage calendarPage = new CalendarPage();
+
     @When("the user clicks the View Selection menu button")
     public void the_user_clicks_the_view_selection_menu_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        calendarPage.selectionView.click();
+
     }
-    @When("the user selects {string}")
+    @When("the user selects Day")
     public void the_user_selects(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        calendarPage.daySelection.click();
     }
     @Then("the user should see the Daily Calendar view displayed")
     public void the_user_should_see_the_daily_calendar_view_displayed() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
     }
 
     @Then("the user should see the Weekly Calendar view displayed")

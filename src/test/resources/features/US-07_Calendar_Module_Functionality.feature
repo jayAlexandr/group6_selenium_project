@@ -6,17 +6,17 @@ Feature: Calendar Functionality
 
   Scenario: User can view the Daily Calendar
     And the user clicks the View Selection menu button
-    And the user selects "Day"
+    And the user selects Day
     Then the user should see the Daily Calendar view displayed
 
   Scenario: User can view the Weekly Calendar
     And the user clicks the View Selection menu button
-    And the user selects "Week"
+    And the user selects Week
     Then the user should see the Weekly Calendar view displayed
 
   Scenario: User can view the Monthly Calendar
     And the user clicks the View Selection menu button
-    And the user selects "Month"
+    And the user selects Month
     Then the user should see the Monthly Calendar view displayed
 
   Scenario Outline: User can create a new event under the Calendar module and view it on the selected day via the Monthly Calendar view
