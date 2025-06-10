@@ -22,9 +22,29 @@ public class LoginPage {
     @FindBy (id = "submit-form")
     public WebElement loginButton;
 
+    // US - 1
+    @FindBy
+    public WebElement blankCredentialMessage;
+
+    @FindBy (xpath = "//p[@class='warning wrongPasswordMsg']")
+    public WebElement invalidCredentialMessage;
+
+    @FindBy (xpath = "//a[@class='toggle-password']")
+    public WebElement togglePassword;
+
+    @FindBy (id = "lost-password")
+    public WebElement forgotPasswordButton;
+
+    @FindBy (id = "reset-password-submit")
+    public WebElement resetPasswordButton;
+
+
+
     public void login(){
         usernameInput.sendKeys(ConfigurationReader.getProperty("username"));
         passwordInput.sendKeys(ConfigurationReader.getProperty("password"));
         loginButton.click();
     }
+
+
 }
