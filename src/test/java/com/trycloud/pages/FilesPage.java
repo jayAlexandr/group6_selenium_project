@@ -36,7 +36,7 @@ public class FilesPage extends BasePage{
     @FindBy(xpath = "//span[.='textFile1']")
     public WebElement testTextFile1;
 
-    @FindBy(xpath = "//span[.='Test folder']")
+    @FindBy(xpath = "//tbody//tr[@data-file='Test folder']")
     public WebElement testFolder;
 
     @FindBy(xpath = "//span[.='~!@#$%^&*()_+-={}[]|,<>.?']")
@@ -116,7 +116,7 @@ public class FilesPage extends BasePage{
     }
 
     public void itemIsDisplayed(WebElement file){
-        BrowserUtils.waitFor(2);
+        BrowserUtils.sleep(2);
         Assert.assertTrue(file.isDisplayed());
     }
 
