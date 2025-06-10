@@ -1,3 +1,4 @@
+@us-07
 Feature: Calendar Functionality
 
   Background:
@@ -32,6 +33,8 @@ Feature: Calendar Functionality
       | 2025-06-11 | Birthday               |
       | 2025-06-12 | Divorce                |
       | 2025-06-13 | Blame Someone Else Day |
+
+
 
   Scenario Outline: User can delete an event from the Monthly Calendar view by using the “More” option
     And the user selects the Monthly Calendar view

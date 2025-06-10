@@ -26,5 +26,8 @@ public class BasePage {
     @FindBy(xpath = "//ul[@id='appmenu']/li[7]")
     public WebElement contactsTab;
 
+    @FindBy(xpath = "//a[@href='/index.php/apps/calendar/']")
+    public WebElement calendar;
+
 
 }
