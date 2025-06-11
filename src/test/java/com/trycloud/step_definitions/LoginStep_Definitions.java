@@ -22,6 +22,7 @@ public class LoginStep_Definitions {
     public void user_is_successfully_logged_in() {
         loginPage.login();
     }
+
     @Then("user should see the dashboard")
     public void user_should_see_the_dashboard() {
         BrowserUtils.verifyTitleContains("Dashboard");
@@ -55,6 +56,7 @@ public class LoginStep_Definitions {
 
     String username;
     String password;
+
     @When("user enters the username {string} and password {string}")
     public void userEntersTheUsernameAndPassword(String user, String pass) {
         username = user;
@@ -68,27 +70,15 @@ public class LoginStep_Definitions {
     @Then("the user should not be able to log in")
     public void theUserShouldNotBeAbleToLogIn() {
         BrowserUtils.verifyTitleContains("Trycloud");
-        System.out.println("Works");
-    }
-
-
-    @Then("user should blankCredentialMessage or invalidCredentialMessage")
-    public void userShouldBlankCredentialMessageOrInvalidCredentialMessage() {
-
-        if (username.isEmpty() || password.isEmpty()){
-
-        }else{
-
-        }
     }
 
     @Then("user can see the password in the input in a form of dots")
     public void userCanSeeThePasswordInTheInputInAFormOfDots() {
         String fieldType = loginPage.passwordInput.getDomAttribute("type");
 
-        if (fieldType.equals("password")){
+        if (fieldType.equals("password")) {
             System.out.println("Test Passed: Password Masked");
-        }else {
+        } else {
             System.out.println("Test Failed: Password is not masked");
         }
 
@@ -116,4 +106,46 @@ public class LoginStep_Definitions {
     public void userCanSeeInTheNextPageResetPasswordButton() {
         loginPage.resetPasswordButton.isDisplayed();
     }
+
+    @And("user can verify a valid placeholder in username input")
+    public void userCanVerifyAValidPlaceholderInUsernameInput() {
+        String expectedUsernamePlaceholder = "Username or email";
+        Assert.assertEquals(expectedUsernamePlaceholder, loginPage.usernameInput.getDomAttribute("placeholder"));
+
+    }
+
+    @And("user can verify a valid placeholder in password input")
+    public void userCanVerifyAValidPlaceholderInPasswordInput() {
+        String expectedPasswordPlaceholder = "Password";
+        Assert.assertEquals(expectedPasswordPlaceholder, loginPage.passwordInput.getDomAttribute("placeholder"));
+    }
+
+
+    @Then("user should see invalidCredentialMessage")
+    public void userShouldSeeInvalidCredentialMessage() {
+        loginPage.invalidCredentialMessage.isDisplayed();
+    }
+
+    @Then("user should see blankCredentialMessage in username")
+    public void userShouldSeeBlankCredentialMessageInUsername() {
+
+        String expectedNewText = "Please fill out this field.";
+        String actualUsernameText = loginPage.usernameInput.getAttribute("validationMessage");
+
+        Assert.assertEquals(expectedNewText, actualUsernameText);
+    }
+
+    @Then("user should see blankCredentialMessage in password")
+    public void userShouldSeeBlankCredentialMessageInPassword() {
+
+        String expectedText = "Please fill out this field.";
+        String actualPasswordText = loginPage.passwordInput.getAttribute("validationMessage");
+
+        Assert.assertEquals(expectedText, actualPasswordText);
+    }
 }
+
+
+
+
+
