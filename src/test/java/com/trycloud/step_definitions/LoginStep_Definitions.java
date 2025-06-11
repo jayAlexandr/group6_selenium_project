@@ -145,8 +145,3 @@ public class LoginStep_Definitions {
         Assert.assertEquals(expectedText, actualPasswordText);
     }
 }
-
-
-
-
-
