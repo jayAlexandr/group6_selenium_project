@@ -76,13 +76,9 @@ public class LoginStep_Definitions {
     @Then("user can see the password in the input in a form of dots")
     public void userCanSeeThePasswordInTheInputInAFormOfDots() {
         String fieldType = loginPage.passwordInput.getDomAttribute("type");
+        String expected = "password";
 
-        if (fieldType.equals("password")) {
-            System.out.println("Test Passed: Password Masked");
-        } else {
-            System.out.println("Test Failed: Password is not masked");
-        }
-
+        Assert.assertEquals(expected, fieldType);
     }
 
     @And("user clicks on toggle password icon")
