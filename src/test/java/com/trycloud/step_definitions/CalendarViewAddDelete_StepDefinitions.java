@@ -58,13 +58,19 @@ public class CalendarViewAddDelete_StepDefinitions {
 
     @When("the user selects the Monthly Calendar view")
     public void the_user_selects_the_monthly_calendar_view() {
+        calendarPage.selectionView.click();
         calendarPage.monthSelection.click();
     }
 
     @When("the user selects the Personal event view")
     public void the_user_selects_the_personal_event_view() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        BrowserUtils.waitForVisibility(calendarPage.personalEvents, 10);
+        if (calendarPage.personalEvents.getDomAttribute("class").contains("disabled")){
+            calendarPage.personalEvents.click();
+        }else {
+            System.out.println("Element is disabled, cannot click.");
+        }
+
     }
 
     @When("the user clicks on {string} in the calendar")

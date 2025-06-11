@@ -17,6 +17,8 @@ public class CalendarPage {
     public WebElement weekSelection;
     @FindBy(xpath = "//span[.='Month']")
     public WebElement monthSelection;
+    @FindBy(xpath = "//li[contains(@class, 'draggable-calendar-list-item')]")
+    public WebElement personalEvents;
 
 
 
