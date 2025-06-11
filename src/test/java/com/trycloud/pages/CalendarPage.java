@@ -9,7 +9,7 @@ public class CalendarPage {
     public CalendarPage() {
         PageFactory.initElements(Driver.getDriver(),this);
     }
-    @FindBy(xpath = "//button[@aria-controls='menu-vatmk']")
+    @FindBy(xpath = "(//button[starts-with(@aria-controls, 'menu-')])[1]")
     public WebElement selectionView;
     @FindBy(xpath = "//span[.='Day']")
     public WebElement daySelection;

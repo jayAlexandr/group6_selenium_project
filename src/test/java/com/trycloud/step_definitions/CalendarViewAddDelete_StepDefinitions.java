@@ -3,6 +3,8 @@ package com.trycloud.step_definitions;
 import com.trycloud.pages.BasePage;
 import com.trycloud.pages.CalendarPage;
 import com.trycloud.pages.LoginPage;
+import com.trycloud.utilities.BrowserUtils;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -26,30 +28,37 @@ public class CalendarViewAddDelete_StepDefinitions {
         calendarPage.selectionView.click();
 
     }
+
     @When("the user selects Day")
-    public void the_user_selects(String string) {
+    public void the_user_selects_Day() {
         calendarPage.daySelection.click();
     }
+    @And("the user selects Week")
+    public void theUserSelectsWeek() {
+        calendarPage.weekSelection.click();
+    }
+    @And("the user selects Month")
+    public void theUserSelectsMonth() {
+        calendarPage.monthSelection.click();
+    }
+
     @Then("the user should see the Daily Calendar view displayed")
     public void the_user_should_see_the_daily_calendar_view_displayed() {
-
+        BrowserUtils.verifyURLContains("timeGridDay");
     }
 
     @Then("the user should see the Weekly Calendar view displayed")
     public void the_user_should_see_the_weekly_calendar_view_displayed() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        BrowserUtils.verifyURLContains("timeGridWeek");
     }
     @Then("the user should see the Monthly Calendar view displayed")
     public void the_user_should_see_the_monthly_calendar_view_displayed() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        BrowserUtils.verifyURLContains("dayGridMonth");
     }
 
     @When("the user selects the Monthly Calendar view")
     public void the_user_selects_the_monthly_calendar_view() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        calendarPage.monthSelection.click();
     }
 
     @When("the user selects the Personal event view")
@@ -108,8 +117,6 @@ public class CalendarViewAddDelete_StepDefinitions {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
-
-
 
 
 
