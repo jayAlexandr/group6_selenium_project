@@ -25,6 +25,7 @@ public class LoginStep_Definitions {
 
     @Then("user should see the dashboard")
     public void user_should_see_the_dashboard() {
+        BrowserUtils.sleep(2);
         BrowserUtils.verifyTitleContains("Dashboard");
     }
 
