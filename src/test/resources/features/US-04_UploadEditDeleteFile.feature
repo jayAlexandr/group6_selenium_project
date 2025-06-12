@@ -12,8 +12,8 @@ Feature: Upload/Edit/Delete File Module Functionality
 
   Background: For all scenarios user is on the Files Module page of the TRYCLOUD application
     Given user is successfully logged in
-    Then user should see the dashboard
-    When user navigates to files module
+    When user should see the dashboard
+    And user navigates to files module
     Then user verifies files module page is displayed
 
   #AC1 - User can upload a file
@@ -23,7 +23,7 @@ Feature: Upload/Edit/Delete File Module Functionality
   Scenario Outline: Upload a valid "<file_name>" and verify it's visible
     When user clicks on the plus button
     And user upload "<file_key>" file from the computer
-    Then user verify uploaded "<file_name>" is visible under the item list
+    Then user verifies item "<file_name>" is visible under the item list
 
     Examples:
       | file_key      | file_name                  |
