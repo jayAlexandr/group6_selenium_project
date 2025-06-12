@@ -43,7 +43,7 @@ public class ContactsPage {
     @FindBy(xpath = "(//div[@class='popover__inner']//button)[2]")
     public WebElement chooseFromFile;
 
-    @FindBy(xpath = "//tr[@data-entryname='2mb-jpg-test-file.jpg']")
+    @FindBy(xpath = "//tr[@data-entryname='pinkRose.jpg']")
     public WebElement image_Link;
 
 
@@ -76,7 +76,7 @@ public class ContactsPage {
 
 
 
-    // Get the list of names
+    // get the list of string from a list of webElements
     public List<String> webeElementList_To_StringList(List<WebElement> listOfWebE){
 
         List<String> listOfNames = new ArrayList<>();
