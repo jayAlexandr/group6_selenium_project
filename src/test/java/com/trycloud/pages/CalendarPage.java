@@ -15,13 +15,13 @@ public class CalendarPage {
     public CalendarPage() {
         PageFactory.initElements(Driver.getDriver(),this);
     }
-    @FindBy(xpath = "(//button[starts-with(@aria-controls, 'menu-')])[1]")
+    @FindBy(xpath = "(//div[@class='trigger']/button[starts-with(@aria-controls, 'menu-')])[1]")
     public WebElement selectionView;
-    @FindBy(xpath = "//span[.='Day']")
+    @FindBy(xpath = "//button[.//span[@class='action-button__text' and text()='Day']]")
     public WebElement daySelection;
-    @FindBy(xpath = "//span[.='Week']")
+    @FindBy(xpath = "//button[.//span[@class='action-button__text' and text()='Week']]")
     public WebElement weekSelection;
-    @FindBy(xpath = "//span[.='Month']")
+    @FindBy(xpath = "//button[.//span[@class='action-button__text' and text()='Month']]")
     public WebElement monthSelection;
     @FindBy(xpath = "//li[contains(@class, 'draggable-calendar-list-item')]")
     public WebElement personalEvents;
@@ -76,6 +76,46 @@ public class CalendarPage {
     }
 
 
+    public boolean isCalendarViewDisplayed(String view) {
+        String expectedViewClass = switch (view.toLowerCase()) {
+            case "day" -> "fc-timeGridDay-view";
+            case "week" -> "fc-timeGridWeek-view";
+            case "month" -> "fc-dayGridMonth-view";
+            default -> throw new IllegalArgumentException("Invalid view: " + view);
+        };
+
+        WebElement container = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10))
+                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.fc-view")));
+
+        return container.getDomAttribute("class").contains(expectedViewClass);
+    }
+
+    public void selectCalendarView(String view) {
+
+
+        switch (view.toLowerCase()) {
+            case "day":
+                BrowserUtils.waitForClickablility(daySelection, 10).click();
+                break;
+            case "week":
+                BrowserUtils.waitForClickablility(weekSelection, 10).click();
+                break;
+            case "month":
+                BrowserUtils.waitForClickablility(monthSelection, 10).click();
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid view: " + view);
+        }
+    }
+
+
 
 
 }
+
+
+
+
+
+
+

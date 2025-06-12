@@ -36,42 +36,16 @@ public class CalendarViewAddDelete_StepDefinitions {
         calendarPage.openViewSelectionMenu();
     }
 
-    //TC1
-    @When("the user selects Day")
-    public void the_user_selects_Day() {
-        calendarPage.selectDayView();
+    @When("the user selects {string}")
+    public void the_user_selects(String calendarView) {
+        calendarPage.selectCalendarView(calendarView);
     }
-    //TODO: REDO THIS STEP, LOOKS TERRIBLE
-    @Then("the user should see the Daily Calendar view displayed")
-    public void the_user_should_see_the_daily_calendar_view_displayed() {
-        //making sure the url changes to desired
-        BrowserUtils.verifyURLContains("timeGridDay");
+    @Then("the user should see the {string} Calendar view displayed")
+    public void theUserShouldSeeTheCalendarViewDisplayed(String view) {
+        Assert.assertTrue("❌ Calendar view not as expected.",
+                calendarPage.isCalendarViewDisplayed(view));
     }
 
-    //TC2
-    @When("the user selects Week")
-    public void theUserSelectsWeek() {
-        calendarPage.selectWeekView();
-    }
-    //TODO: REDO THIS STEP, LOOKS TERRIBLE
-    @Then("the user should see the Weekly Calendar view displayed")
-    public void the_user_should_see_the_weekly_calendar_view_displayed() {
-        //making sure the url changes to desired
-        BrowserUtils.verifyURLContains("timeGridWeek");
-    }
-
-    //TC3
-    @When("the user selects Month")
-    public void theUserSelectsMonth() {
-        //selecting Month view
-        calendarPage.selectMonthView();
-    }
-    //TODO: REDO THIS STEP, LOOKS TERRIBLE
-    @Then("the user should see the Monthly Calendar view displayed")
-    public void the_user_should_see_the_monthly_calendar_view_displayed() {
-        //making sure the url changes to desired
-        BrowserUtils.verifyURLContains("dayGridMonth");
-    }
 
     //TC4
     @When("the user selects the Monthly Calendar view")

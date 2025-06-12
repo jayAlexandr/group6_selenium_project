@@ -4,26 +4,20 @@ Feature: Calendar Functionality
   Background:
     When the user is logged into the app and on the Calendar page
 
-  @tc1
-  Scenario: User can view the Daily Calendar
+  @tc1-2-3
+  Scenario Outline: User can view the "<calendarView>" Calendar
     And the user clicks the View Selection menu button
-    And the user selects Day
-    Then the user should see the Daily Calendar view displayed
+    And the user selects "<calendarView>"
+    Then the user should see the "<calendarView>" Calendar view displayed
 
-  @tc2
-  Scenario: User can view the Weekly Calendar
-    And the user clicks the View Selection menu button
-    And the user selects Week
-    Then the user should see the Weekly Calendar view displayed
-
-  @tc3
-  Scenario: User can view the Monthly Calendar
-    And the user clicks the View Selection menu button
-    And the user selects Month
-    Then the user should see the Monthly Calendar view displayed
+    Examples:
+      | calendarView |
+      | Day          |
+      | Week         |
+      | Month        |
 
   @tc4
-  Scenario Outline: User can create a new event under the Calendar module and view it on the selected day via the Monthly Calendar view
+  Scenario Outline: User can create a new event "<event>" under the Calendar module and view it on the selected day "<date>" via the Monthly Calendar view
     And the user selects the Monthly Calendar view
     And the user selects the Personal event view
     And the user clicks on New Event button
@@ -41,7 +35,7 @@ Feature: Calendar Functionality
 
 
   @tc5
-  Scenario Outline: User can delete an event from the Monthly Calendar view by using the “More” option
+  Scenario Outline: User can delete an event "<event>" from the Monthly Calendar view by using the “More” option
     And the user selects the Monthly Calendar view
     And the user selects the Personal event view
     And the user selects the created "<event>"
