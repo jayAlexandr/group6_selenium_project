@@ -352,6 +352,9 @@ public class TalkModule_StepDefinitions {
 
     @When("the conversations should no longer appear in the conversation list except talk updates")
     public void the_conversations_should_no_longer_appear_in_the_conversation_list_except_talk_updates() {
+        if (talkModulePage.conversationList.size() == 1) {
+            Assert.assertTrue(talkModulePage.conversationList.size() == 1);
+        }
         for (WebElement conversation : talkModulePage.conversationList) {
             if (conversation.getText().trim().equals("Talk updates ✅")) {
                 System.out.println("Expected talk update in the list: " + conversation.getText());
