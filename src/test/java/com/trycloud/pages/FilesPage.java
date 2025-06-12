@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
@@ -141,6 +140,9 @@ public class FilesPage extends BasePage{
     @FindBy (xpath = "//tr[@data-id='180499']")
     public WebElement fileNameBox;
 
+    @FindBy (xpath = "//div[@id='app-content-favorites']//tr[@data-id='180499']")
+    public WebElement fileNameBoxInFavorites;
+
     @FindBy (xpath = "//tr[@data-id='180499']/td[2]/a/span[1]/span[1]")
     public WebElement fileNameInputBox;
 
@@ -179,6 +181,9 @@ public class FilesPage extends BasePage{
 
     @FindBy (xpath = "(//div[@class='emptycontent'])[2]")
     public WebElement noComments;
+
+    @FindBy (xpath = "(//div[@class='message'])[2]")
+    public WebElement commentDisplayed;
 
 
 

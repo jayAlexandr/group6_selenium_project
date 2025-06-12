@@ -8,14 +8,15 @@ Feature: Add to Favorites/Rename/Comment on File Functionality
   Scenario: User can add any file to favorites from its own three dots menu
     When user clicks on three dots menu in the file
     And user can click on the menu option Add to favorites
-    And click to favorites folder to check new added file is displayed
+    Then click to favorites folder to check new added file is displayed
+    And user removes added file from favorites from its own three dots menu
 
 
   Scenario: User can rename any file from its own three dots menu
     When user clicks on three dots menu in the file
     And user can click on the menu option to Rename
     And user can Rename any file "US-14_isk88"
-    And user should be able to see renamed file "US-14_isk88"
+    Then user should be able to see renamed file "US-14_isk88"
 
 
   Scenario: User can put some comments on any file from the file details menu opened right side
@@ -23,7 +24,8 @@ Feature: Add to Favorites/Rename/Comment on File Functionality
     And user can click on the menu option to Details
     And user can click on the Comments
     And user can leave comment "Informative!" in the comments input box
-    Then user can click to post button
+    And user can click to post button
+    Then user can see posted comment
 
 
   Scenario: User can delete the comments made on any file from the the file details menu opened right side
