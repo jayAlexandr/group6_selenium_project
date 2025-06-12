@@ -4,6 +4,7 @@ import com.trycloud.pages.FilesPage;
 import com.trycloud.utilities.BrowserUtils;
 import com.trycloud.utilities.ConfigurationReader;
 import com.trycloud.utilities.Driver;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -35,19 +36,15 @@ public class Add_Favorites_Rename_Comment_StepDefinitions {
         filesModulePage.renameButton.click();
     }
 
-    @When("user can Rename any file")
-    public void user_can_rename_any_file() {
-        Driver.getDriver().switchTo().activeElement().sendKeys(ConfigurationReader.getProperty("newNameInput") + Keys.ENTER);
-        BrowserUtils.sleep(2);
+    @And("user can Rename any file {string}")
+    public void userCanRenameAnyFile(String input) {
+        Driver.getDriver().switchTo().activeElement().sendKeys(input + Keys.ENTER);
     }
 
-    @Then("user should be able to see renamed file")
-    public void user_should_be_able_to_see_renamed_file() {
-        String expectedText = ConfigurationReader.getProperty("newNameInput");
-        String actualText = filesModulePage.fileNameInputBox.getText();
+    @And("user should be able to see renamed file {string}")
+    public void userShouldBeAbleToSeeRenamedFile(String expected) {
         BrowserUtils.sleep(2);
-
-        Assert.assertEquals(expectedText, actualText);
+        Assert.assertEquals(expected, filesModulePage.fileNameInputBox.getText());
     }
 
     @Then("user can click on the menu option to Details")
@@ -60,9 +57,9 @@ public class Add_Favorites_Rename_Comment_StepDefinitions {
         filesModulePage.commentButton.click();
     }
 
-    @Then("user can leave any comment in the comments input box")
-    public void user_can_leave_any_comment_in_the_comments_input_box() {
-        filesModulePage.commentInputBox.sendKeys(ConfigurationReader.getProperty("comment"));
+    @And("user can leave comment {string} in the comments input box")
+    public void userCanLeaveCommentInTheCommentsInputBox(String comment) {
+        filesModulePage.commentInputBox.sendKeys(comment);
     }
 
     @Then("user can click to post button")
