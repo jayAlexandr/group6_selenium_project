@@ -10,13 +10,12 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 
 import static com.trycloud.utilities.BrowserUtils.*;
@@ -24,7 +23,6 @@ import static com.trycloud.utilities.BrowserUtils.*;
 public class Dashboard_StepDefinitions {
 
     DashboardPage dashboardPage = new DashboardPage();
-    public static String selectedTimeOption;
 
     @Then("user should be able to see following modules")
     public void user_should_be_able_to_see_following_modules(List<String> expectedModuleNames) {
