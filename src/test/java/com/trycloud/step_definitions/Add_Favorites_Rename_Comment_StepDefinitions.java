@@ -2,7 +2,6 @@ package com.trycloud.step_definitions;
 
 import com.trycloud.pages.FilesPage;
 import com.trycloud.utilities.BrowserUtils;
-import com.trycloud.utilities.ConfigurationReader;
 import com.trycloud.utilities.Driver;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -26,7 +25,11 @@ public class Add_Favorites_Rename_Comment_StepDefinitions {
     public void click_to_favorites_folder_to_check_new_added_file_is_displayed() {
         filesModulePage.favoritesFolder.click();
         BrowserUtils.sleep(2);
-        filesModulePage.fileNameBox.isDisplayed();
+        Assert.assertTrue(filesModulePage.fileNameBoxInFavorites.isDisplayed());
+    }
+
+    @And("user removes added file from favorites from its own three dots menu")
+    public void userRemovesAddedFileFromFavoritesFromItsOwnThreeDotsMenu() {
         filesModulePage.threeDotsInFavorites.click();
         filesModulePage.addFavoriteButton.click();
     }
@@ -67,6 +70,11 @@ public class Add_Favorites_Rename_Comment_StepDefinitions {
         filesModulePage.commentSubmitButton.click();
     }
 
+    @Then("user can see posted comment")
+    public void userCanSeePostedComment() {
+        Assert.assertTrue(filesModulePage.commentDisplayed.isDisplayed());
+    }
+
     @Then("user clicks to three dots menu by the persons name")
     public void user_clicks_to_three_dots_menu_by_the_persons_name() {
         filesModulePage.threeDotsInComments.click();
@@ -90,7 +98,7 @@ public class Add_Favorites_Rename_Comment_StepDefinitions {
 
     @Then("user verify files module page is displayed")
     public void userVerifyFilesModulePageIsDisplayed() {
-        filesModulePage.allFilesSelection.isDisplayed();
+        Assert.assertTrue(filesModulePage.allFilesSelection.isDisplayed());
 
     }
 }
