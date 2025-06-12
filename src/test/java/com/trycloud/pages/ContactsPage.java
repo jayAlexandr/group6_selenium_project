@@ -19,6 +19,9 @@ public class ContactsPage {
     @FindBy(id = "new-contact-button")
     public WebElement addNewContact_Button;
 
+    @FindBy(id = "contact-fullname")
+    public WebElement newContactName_Box;
+
     @FindBy(id = "contact-org")
     public WebElement newContact_CompanyBox;
 
@@ -47,6 +50,9 @@ public class ContactsPage {
     @FindBy(xpath = "//button[@class='primary']")
     public WebElement chooseButton;
 
+    @FindBy(xpath = "//div[@class='contact-header-avatar__photo']")
+    public WebElement image_exist;
+
     @FindBy(xpath = "//div[@class='contact-header__actions']")
     public WebElement actionsMenuButton;
 
@@ -68,6 +74,29 @@ public class ContactsPage {
     @FindBy(xpath = "//li[@id='everyone']/../li//span")
     public List<WebElement> elementsInFirstColumn;
 
+
+
+    // Get the list of names
+    public List<String> webeElementList_To_StringList(List<WebElement> listOfWebE){
+
+        List<String> listOfNames = new ArrayList<>();
+
+        for (WebElement each : listOfWebE) {
+
+            listOfNames.add(each.getText());
+
+        }
+
+        return listOfNames;
+    }
+
+
+    //verify if a contact is added to the list
+    public boolean isContactDisplayed(int sizeOfList, int counterList) {
+
+        return sizeOfList == counterList;
+    }
+
     // get the groups' names in the first column
     public List<String> listGroups_In_FirstColumn(){
 
@@ -85,25 +114,6 @@ public class ContactsPage {
 
         return listOfGroups_FirstColumn;
 
-    }
-
-
-    public List<String> webeElementList_To_StringList(List<WebElement> listOfWebE){
-
-        List<String> listOfNames = new ArrayList<>();
-
-        for (WebElement each : listOfWebE) {
-
-            listOfNames.add(each.getText());
-
-        }
-
-        return listOfNames;
-    }
-
-    public boolean isContactDisplayed(int sizeOfList, int counterList) {
-
-        return sizeOfList == counterList;
     }
 
 }
