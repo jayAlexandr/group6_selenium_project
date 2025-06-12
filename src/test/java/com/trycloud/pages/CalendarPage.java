@@ -19,6 +19,16 @@ public class CalendarPage {
     public WebElement monthSelection;
     @FindBy(xpath = "//li[contains(@class, 'draggable-calendar-list-item')]")
     public WebElement personalEvents;
+    @FindBy(xpath = "//button[@class='button primary new-event']")
+    public WebElement newEventButton;
+    @FindBy(xpath = "//label[@for='allDay']")
+    public WebElement allDayCheckBox;
+    @FindBy(xpath = "//input[@placeholder='Event title']")
+    public WebElement eventTitle;
+    @FindBy(xpath = "//button[@class='primary']")
+    public WebElement saveButton;
+    @FindBy(xpath = "//div[@class='mx-datepicker'][1]")
+    public WebElement selectDate;
 
 
 
