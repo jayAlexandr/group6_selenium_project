@@ -34,10 +34,10 @@ Feature: Calendar Functionality
     Then the user should see the created "<event>" displayed on the selected day in the Monthly Calendar view
     Examples:
       | date       | event                  |
-      | 2025-06-11 | Prom                   |
-      | 2025-06-12 | Birthday               |
-      | 2025-06-13 | Wedding                |
-      | 2025-06-14 | Blame Someone Else Day |
+      | 2025-06-14 | Prom                   |
+      | 2025-06-15 | Birthday               |
+      | 2025-06-16 | Wedding                |
+      | 2025-06-17 | Blame Someone Else Day |
 
 
   @tc5
@@ -47,10 +47,11 @@ Feature: Calendar Functionality
     And the user selects the created "<event>"
     And the user clicks the More button
     And the user clicks the Actions button on the More page
+    And the user clicks on Delete button
     Then the user should see "<event>" removed from the calendar
     Examples:
       | event                  |
       | Prom                   |
       | Birthday               |
-      | Divorce                |
+      | Wedding                |
       | Blame Someone Else Day |

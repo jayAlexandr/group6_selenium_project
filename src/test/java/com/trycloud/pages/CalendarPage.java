@@ -1,9 +1,15 @@
 package com.trycloud.pages;
 
+import com.trycloud.utilities.BrowserUtils;
 import com.trycloud.utilities.Driver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class CalendarPage {
     public CalendarPage() {
@@ -29,6 +35,46 @@ public class CalendarPage {
     public WebElement saveButton;
     @FindBy(xpath = "//div[@class='mx-datepicker'][1]")
     public WebElement selectDate;
+    @FindBy(xpath = "//div[@class='event-popover__buttons']/button[1]")
+    public WebElement moreButton;
+    @FindBy(xpath = "(//button[@aria-label='Actions'])[6]")
+    public WebElement actionsButton;
+    @FindBy(xpath = "//span[.='Delete']")
+    public WebElement deleteButton;
+
+
+    public void clickDateCell(String date) {
+        String xpath = "//td[@title='" + date + "']";
+        WebElement dateCell = Driver.getDriver().findElement(By.xpath(xpath));
+        BrowserUtils.waitForClickablility(dateCell, 10);
+        dateCell.click();
+    }
+
+    public void openViewSelectionMenu() {
+        BrowserUtils.waitForClickablility(selectionView, 10);
+        selectionView.click();
+    }
+
+    public void selectDayView() {
+        BrowserUtils.waitForClickablility(daySelection, 10);
+        daySelection.click();
+    }
+
+    public void selectWeekView() {
+        BrowserUtils.waitForClickablility(weekSelection, 10);
+        weekSelection.click();
+    }
+
+    public void selectMonthView() {
+        BrowserUtils.waitForClickablility(monthSelection, 10);
+        monthSelection.click();
+    }
+
+    public void selectPersonalEventsView() {
+        BrowserUtils.waitForClickablility(monthSelection, 10);
+        personalEvents.click();
+    }
+
 
 
 
