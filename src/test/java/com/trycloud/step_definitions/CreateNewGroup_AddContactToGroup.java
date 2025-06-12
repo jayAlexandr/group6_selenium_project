@@ -8,9 +8,11 @@ import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
-public class Create_New_Group {
+public class CreateNewGroup_AddContactToGroup {
 
     ContactsPage pageOfContacts = new ContactsPage();
+
+    //----------------------Create a group---------------------------------
 
     @When("user clicks the create group icon")
     public void user_clicks_the_create_group_icon() {
@@ -23,6 +25,15 @@ public class Create_New_Group {
 
         pageOfContacts.addGroupName_box.sendKeys(name + Keys.ENTER);
     }
+
+    @Then("user sees {string} in the list of group")
+    public void userSeesInTheListOfGroup(String groupName) {
+
+        Assert.assertTrue("Group should be in the list",
+        pageOfContacts.listGroups_In_FirstColumn().contains(groupName));
+    }
+
+    //-------------Add a contact to a group------------------------
 
     @When("user clicks Groups Button and add the contact to {string}")
     public void user_clicks_groups_button_and_add_the_contact_to(String groupName) {
@@ -53,7 +64,6 @@ public class Create_New_Group {
 
 
     }
-
 
 
 }
