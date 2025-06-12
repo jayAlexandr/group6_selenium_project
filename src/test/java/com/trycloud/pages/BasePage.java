@@ -17,7 +17,7 @@ public class BasePage {
     @FindBy(xpath = "//a[@href='/index.php/settings/user']")
     public WebElement userSettings;
 
-    @FindBy (xpath = "//li[@data-id='files']")
+    @FindBy(xpath = "//li[@data-id='files']")
     public WebElement filesModuleButton;
 
     @FindBy(id = "expand")
@@ -26,5 +26,7 @@ public class BasePage {
     @FindBy(xpath = "//ul[@id='appmenu']/li[7]")
     public WebElement contactsTab;
 
+    @FindBy(xpath = "//a[@aria-label='Talk'][1]")
+    public WebElement talkModuleButton;
 
 }
