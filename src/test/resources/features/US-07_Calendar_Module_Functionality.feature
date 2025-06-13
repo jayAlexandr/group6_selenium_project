@@ -17,15 +17,12 @@ Feature: Calendar Functionality
       | Month        |
 
   @tc4
-  Scenario Outline: User can create a new event "<event>" under the Calendar module and view it on the selected day "<date>" via the Monthly Calendar view
-    And the user selects the Monthly Calendar view
-    And the user selects the Personal event view
-    And the user clicks on New Event button
-    And the user checks the All Day checkbox
-    And the user clicks on "<date>" in the calendar
-    And the user enters "<event>" as the event title
-    And the user clicks Save
-    Then the user should see the created "<event>" displayed on the selected day in the Monthly Calendar view
+  Scenario Outline: User can create and view "<event>" on "<date>" in the Monthly Calendar view
+    Given the user is on the Monthly Calendar view
+    And the user filters to Personal events
+    When the user creates a new all-day event titled "<event>" on "<date>"
+    Then the event "<event>" should be visible in the calendar
+
     Examples:
       | date       | event                  |
       | 2025-06-14 | Prom                   |
@@ -34,15 +31,14 @@ Feature: Calendar Functionality
       | 2025-06-17 | Blame Someone Else Day |
 
 
+
   @tc5
-  Scenario Outline: User can delete an event "<event>" from the Monthly Calendar view by using the “More” option
-    And the user selects the Monthly Calendar view
-    And the user selects the Personal event view
-    And the user selects the created "<event>"
-    And the user clicks the More button
-    And the user clicks the Actions button on the More page
-    And the user clicks on Delete button
-    Then the user should see "<event>" removed from the calendar
+  Scenario Outline: User can delete an event "<event>" from the Monthly Calendar view
+    Given the user is on the Monthly Calendar view
+    And the user filters to Personal events
+    When the user deletes the event titled "<event>"
+    Then the event "<event>" should no longer be visible in the calendar
+
     Examples:
       | event                  |
       | Prom                   |
