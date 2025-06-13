@@ -9,10 +9,14 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class Create_changeImage_Delete_Contact {
 
     ContactsPage contactsPage = new ContactsPage();
     BasePage basePage = new BasePage();
+
+  //--------------Add New Contact-----------------------------------
 
     @When("user clicks the Contacts Tab")
     public void user_clicks_the_contacts_tab() {
@@ -28,39 +32,41 @@ public class Create_changeImage_Delete_Contact {
         BrowserUtils.sleep(1);
 
     }
-    @And("user enters {string} in the company box")
-    public void userEntersInTheCompanyBox(String name) {
 
-        //Enter the name in the Company box
-        contactsPage.newContact_CompanyBox.sendKeys(name);
-        BrowserUtils.sleep(2);
+    @And("user enters {string} of the new contact")
+    public void userEntersOfTheNewContact(String fullName) {
+
+        // enter the full name of the new contact
+        contactsPage.newContactName_Box.clear();
+        contactsPage.newContactName_Box.sendKeys(fullName);
     }
 
-
-    @And("user enters {string} in the title box")
-    public void userEntersInTheTitleBox(String lastName) {
-
-        //enter the last name in the Title box
-        contactsPage.newContact_TitleBox.sendKeys(lastName);
-        BrowserUtils.sleep(2);
-
-    }
-
-
-    @Then("user can see the new contact in the All contacts list")
-    public void userCanSeeTheInTheAllContactsList() {
-
+    @Then("user can see {string} in the All contacts list")
+    public void userCanSeeInTheAllContactsList(String expectedName) {
         // click the all contacts button
         contactsPage.allContacts_Button.click();
 
-        // Determine the size of the list and counter number
-        int sizeOfList = contactsPage.contactsList.size();
-        int counterOfList = Integer.parseInt(contactsPage.counter_List.getText());
+        // Verify if the expected contact is in the list
 
-        //check if the counter is the same as the size of the list
-        Assert.assertTrue(contactsPage.isContactDisplayed(sizeOfList,counterOfList));
+        boolean isDisplayed = false;
+
+        List<String> namesInList = contactsPage.
+                webeElementList_To_StringList(contactsPage.contactsList);
+
+        for (String each : namesInList) {
+
+            if (each.equals(expectedName)){
+
+                isDisplayed = true;
+            }
+        }
+
+        Assert.assertTrue("contact is successfully added!",
+                isDisplayed);
 
     }
+
+    //_____________________________
 
     @And("user clicks on {string} contact")
     public void userClicksOnContact(String name) {
@@ -92,12 +98,16 @@ public class Create_changeImage_Delete_Contact {
     }
 
 
-    @Then("user clicks choose from file button")
+    @And("user clicks choose from file button")
     public void userClicksChooseFromFileButton() {
 
         //click the choose from file button
         contactsPage.chooseFromFile.click();
         BrowserUtils.sleep(1);
+
+    }
+    @And("user chooses the image and clicks choose")
+    public void userChoosesTheImageAndClicksChoose() {
 
         //click the image link
         contactsPage.image_Link.click();
@@ -105,8 +115,16 @@ public class Create_changeImage_Delete_Contact {
 
         //click the choose button
         contactsPage.chooseButton.click();
+    }
+
+    @Then("user sees the image changed")
+    public void userSeesTheImageChanged() {
+
+        Assert.assertTrue("Image WebElement should be visible on the page",
+                contactsPage.image_exist.isDisplayed());
 
     }
+    //---------------------Delete a contact--------------------------------
 
     @When("User clicks the menu button")
     public void user_clicks_the_menu_button() {
@@ -127,6 +145,7 @@ public class Create_changeImage_Delete_Contact {
             Assert.assertFalse("Contact list should not contain: " + name, each.getText().contains(name));
         }
     }
+
 
 
 }

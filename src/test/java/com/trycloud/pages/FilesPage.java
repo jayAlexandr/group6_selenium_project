@@ -4,11 +4,14 @@ import com.trycloud.utilities.BrowserUtils;
 import com.trycloud.utilities.Driver;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class FilesPage extends BasePage{
 
@@ -36,7 +39,7 @@ public class FilesPage extends BasePage{
     @FindBy(xpath = "//span[.='textFile1']")
     public WebElement testTextFile1;
 
-    @FindBy(xpath = "//span[.='Test folder']")
+    @FindBy(xpath = "//tbody//tr[@data-file='Test folder']")
     public WebElement testFolder;
 
     @FindBy(xpath = "//span[.='~!@#$%^&*()_+-={}[]|,<>.?']")
@@ -116,7 +119,7 @@ public class FilesPage extends BasePage{
     }
 
     public void itemIsDisplayed(WebElement file){
-        BrowserUtils.waitFor(2);
+        BrowserUtils.sleep(2);
         Assert.assertTrue(file.isDisplayed());
     }
 
@@ -135,11 +138,120 @@ public class FilesPage extends BasePage{
         return Driver.getDriver().findElement(By.xpath(xpath));
     }
 
+    //================Deleted Files Tab====================
+
+    @FindBy(id = "app-content-trashbin")
+    public WebElement deletedFilesTab;
+
+    @FindBy(xpath = "//a[@data-sort='mtime']//span[.='Deleted']")
+    public WebElement sortByDateButton;
+
+    @FindBy(xpath = "//div[@id='app-content-trashbin']//span[.='Name']")
+    public WebElement sortByNameButton;
+
+    @FindBy(xpath = "//div[@id='app-content-trashbin']//tbody//tr//span[@class='innernametext']")
+    public WebElement firstLineOfTheDeletedFileList;
+
+    @FindBy(xpath = "//div[@id='app-content-trashbin']//tbody//tr//td[@class='date']//span")
+    public List<WebElement> listOfFileDates;
+
+    @FindBy(xpath = "//div[@id='app-content-trashbin']//tbody//tr//td[@class='filename']//span[@class='innernametext']")
+    public List<WebElement> listOfFileNames;
+
+    @FindBy(xpath = "//a[@class='menuitem action action-delete permanent']")
+    public WebElement deletePermanentlyThreeDotButton;
+
+    @FindBy(xpath = "//div[@id='app-content-trashbin']//a[@class='actions-selected']")
+    public WebElement actionsButtonInDeleted;
+
+    @FindBy(xpath = "//a[@data-action='restore']")
+    public WebElement restoreActions;
+
+    @FindBy(xpath = "//div[@id='app-content-trashbin']//a[@data-action='delete']")
+    public WebElement deletePermanentlyActions;
+
+    public boolean filesSortedByOldestToNewest(List<WebElement> listOfFileDates) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy h:mm a", Locale.US);
+
+        List<LocalDateTime> actualDates = listOfFileDates.stream()
+                .map(element -> element.getAttribute("data-original-title"))
+                .map(dateString -> LocalDateTime.parse(dateString, formatter))
+                .collect(Collectors.toList());
+
+        List<LocalDateTime> sortedDates = new ArrayList<>(actualDates);
+        Collections.sort(sortedDates);
+
+        return actualDates.equals(sortedDates);
+    }
+
+    public boolean filesSortedByNewestToOldest(List<WebElement> listOfFileDates) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy h:mm a", Locale.US);
+
+        List<LocalDateTime> actualDates = listOfFileDates.stream()
+                .map(element -> element.getAttribute("data-original-title"))
+                .map(dateString -> LocalDateTime.parse(dateString, formatter))
+                .collect(Collectors.toList());
+
+        List<LocalDateTime> sortedDates = new ArrayList<>(actualDates);
+        sortedDates.sort(Comparator.reverseOrder());
+
+        return actualDates.equals(sortedDates);
+    }
+
+    public boolean fileNamesSortedAlphabetically(List<WebElement> listOfFileNames) {
+        List<String> actualNames = listOfFileNames.stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+
+        List<String> sortedNames = new ArrayList<>(actualNames);
+        Collections.sort(sortedNames, String.CASE_INSENSITIVE_ORDER);
+
+        return actualNames.equals(sortedNames);
+    }
+
+    public boolean fileNamesSortedInReverseAlphabeticalOrder(List<WebElement> listOfFileNames) {
+        List<String> actualNames = listOfFileNames.stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+
+        List<String> sortedNames = new ArrayList<>(actualNames);
+        sortedNames.sort(Collections.reverseOrder(String.CASE_INSENSITIVE_ORDER));
+
+        return actualNames.equals(sortedNames);
+    }
+
+    public WebElement getThreeDotMenuDeleted(String fileName) {
+        String xpath = "//div[@id='app-content-trashbin']//tr[starts-with(@data-file, '" + fileName + "')]" +
+                "//a[@data-action='menu']";
+        return Driver.getDriver().findElement(By.xpath(xpath));
+    }
+
+    public WebElement getRestoreButton(String fileName) {
+        String xpath = "//div[@id='app-content-trashbin']//tr[starts-with(@data-file, '" + fileName + "')]" +
+                "//a[@data-action='Restore']";
+        return Driver.getDriver().findElement(By.xpath(xpath));
+    }
+
+    public boolean fileNameNotPresent(String fileName, List<WebElement> listOfFileNames) {
+        List<String> actualFileNames = listOfFileNames.stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+
+        return !actualFileNames.contains(fileName);
+    }
+
+    public WebElement getCheckBoxDeleted(String fileName) {
+        String xpath = "//div[@id='app-content-trashbin']//tr[starts-with(@data-file, '" + fileName + "')]/td[@class='selection']";
+        return Driver.getDriver().findElement(By.xpath(xpath));
+    }
 
     //iskandar
 
     @FindBy (xpath = "//tr[@data-id='180499']")
     public WebElement fileNameBox;
+
+    @FindBy (xpath = "//div[@id='app-content-favorites']//tr[@data-id='180499']")
+    public WebElement fileNameBoxInFavorites;
 
     @FindBy (xpath = "//tr[@data-id='180499']/td[2]/a/span[1]/span[1]")
     public WebElement fileNameInputBox;
@@ -179,6 +291,9 @@ public class FilesPage extends BasePage{
 
     @FindBy (xpath = "(//div[@class='emptycontent'])[2]")
     public WebElement noComments;
+
+    @FindBy (xpath = "(//div[@class='message'])[2]")
+    public WebElement commentDisplayed;
 
 
 

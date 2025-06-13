@@ -1,5 +1,4 @@
-
-  Feature: Contact Group Functionality
+Feature: Contact Group Functionality under Contacts Module
     Agile story: As a user, I should be able to create a new group and add any contact into a group under Contacts module
 
     # 1. User can create a new group under Contacts Module
@@ -9,17 +8,17 @@
 
     Background: Be in the Home Page
       Given user is successfully logged in
+      And user clicks the Contacts Tab
 
     @CreateNewGroup
     Scenario: Create a new group under Contacts Module
-      When user clicks the Contacts Tab
-      And user clicks the create group icon
+      When user clicks the create group icon
       And user enters "Cinema"
+      Then user sees "Cinema" in the list of group
 
     @AddContactToGroup
     Scenario: Add a new contact to a group
-      When user clicks the Contacts Tab
-      And user clicks on "David" contact
+      And user clicks on "Adam Smith" contact
       And user clicks Groups Button and add the contact to "Cinema"
       Then user should see the same lists in both options and first column
 

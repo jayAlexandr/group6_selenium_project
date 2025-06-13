@@ -12,8 +12,8 @@ Feature: Upload/Edit/Delete File Module Functionality
 
   Background: For all scenarios user is on the Files Module page of the TRYCLOUD application
     Given user is successfully logged in
-    Then user should see the dashboard
-    When user navigates to files module
+    When user should see the dashboard
+    And user navigates to files module
     Then user verifies files module page is displayed
 
   #AC1 - User can upload a file
@@ -23,7 +23,7 @@ Feature: Upload/Edit/Delete File Module Functionality
   Scenario Outline: Upload a valid "<file_name>" and verify it's visible
     When user clicks on the plus button
     And user upload "<file_key>" file from the computer
-    Then user verify uploaded "<file_name>" is visible under the item list
+    Then user verifies item "<file_name>" is visible under the item list
 
     Examples:
       | file_key      | file_name                  |
@@ -62,7 +62,7 @@ Feature: Upload/Edit/Delete File Module Functionality
   Scenario: Create a new folder using arrow button
     When user clicks on the plus button
     And user clicks on the New folder in submenu
-    And user enter New folder name
+    And user enter "GR6" new folder name
     And user clicks on arrow button
     Then user verify created New folder is displayed under the item list
 
@@ -165,7 +165,7 @@ Feature: Upload/Edit/Delete File Module Functionality
   #AC4 - User can delete any selected item from its three dots menu
   #================================================================================
 
-  @ac4
+  @ac4 @inTest
   Scenario: Delete an item
     When user clicks on "7mb.zip" Three Dot menu
     And user clicks on Delete File
@@ -195,7 +195,7 @@ Feature: Upload/Edit/Delete File Module Functionality
     And user navigates to the bottom of the item list
     Then user verify the total number of items should be displayed correctly
 
-  @ac5 @inTest
+  @ac5
   Scenario: Verify the total number of files and folders after deleting the item
     When user marks CheckBox of "textFile3.txt" file
     And user clicks on Actions button

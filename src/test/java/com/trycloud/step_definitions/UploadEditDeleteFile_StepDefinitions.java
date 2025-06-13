@@ -3,6 +3,7 @@ package com.trycloud.step_definitions;
 import com.trycloud.pages.FilesPage;
 import com.trycloud.utilities.BrowserUtils;
 import com.trycloud.utilities.ConfigurationReader;
+import com.trycloud.utilities.Driver;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -32,11 +33,12 @@ public class UploadEditDeleteFile_StepDefinitions {
 
     @When("user upload {string} file from the computer")
     public void uploadFile(String fileKey) {
-        filesPage.uploadFileButton.sendKeys(System.getProperty("user.dir") + ConfigurationReader.getProperty(fileKey));
+        filesPage.uploadFileButton.sendKeys(System.getProperty("user.dir")
+                + ConfigurationReader.getProperty(fileKey));
     }
 
-    @Then("user verify uploaded {string} is visible under the item list")
-    public void user_verify_uploaded_is_visible_under_the_item_list(String expectedFileName) {
+    @Then("user verifies item {string} is visible under the item list")
+    public void user_verifies_item_is_visible_under_the_item_list(String expectedFileName) {
         filesPage.verifyFileIsDisplayed(expectedFileName);
     }
 
@@ -47,8 +49,10 @@ public class UploadEditDeleteFile_StepDefinitions {
 
     @When("user upload {string} and {string} files from the computer")
     public void user_upload_and_files_from_the_computer(String file1, String file2) {
-        filesPage.uploadFileButton.sendKeys(ConfigurationReader.getProperty(file1));
-        filesPage.uploadFileButton.sendKeys(ConfigurationReader.getProperty(file2));
+        filesPage.uploadFileButton.sendKeys(System.getProperty("user.dir")
+                + ConfigurationReader.getProperty(file1));
+        filesPage.uploadFileButton.sendKeys(System.getProperty("user.dir")
+                + ConfigurationReader.getProperty(file2));
     }
 
     @Then("user verify files {string} and {string} are displayed")
@@ -69,9 +73,9 @@ public class UploadEditDeleteFile_StepDefinitions {
         filesPage.newFolderButton.click();
     }
 
-    @When("user enter New folder name")
-    public void user_enter_new_folder_name() {
-        filesPage.newFolderNameInput.sendKeys("Test folder");
+    @When("user enter {string} new folder name")
+    public void user_enter_new_folder_name(String folderName) {
+        filesPage.newFolderNameInput.sendKeys(folderName);
     }
 
     @When("user clicks on arrow button")
