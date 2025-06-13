@@ -13,6 +13,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class FilesPage extends BasePage{
 
     @FindBy(linkText = "All files")
@@ -126,12 +131,15 @@ public class FilesPage extends BasePage{
     public void messageIsDisplayed(WebElement element, String expectedMessage) {
         BrowserUtils.waitForVisibility(element, 20);
         Assert.assertTrue(element.getText().contains(expectedMessage));
+
     }
 
     public WebElement getThreeDotMenu(String fileName) {
         String xpath = "//tr[@data-file='" + fileName + "']//a[@data-action='menu']";
         return Driver.getDriver().findElement(By.xpath(xpath));
     }
+
+
 
     public WebElement getCheckBox(String fileName) {
         String xpath = "//tr[@data-file='" + fileName + "']/td[@class='selection']";
@@ -298,5 +306,96 @@ public class FilesPage extends BasePage{
 
 
 
+    // FatimaZahra
+    @FindBy (xpath = "(//span[.='Name'])[1]")
+    public WebElement nameOrder_Icon;
 
+    @FindBy (xpath = "(//span[.='Size'])[1]")
+    public WebElement SizeOrder_Icon;
+
+    // List Of folders
+    @FindBy (xpath = "//tr[@data-type='dir']")
+    public List<WebElement> folderRows;
+
+    // List Of files
+    @FindBy (xpath = "//tr[@data-type='file']")
+    public  List<WebElement> fileRows;
+
+    // List of all files and folders
+    @FindBy (xpath = "//tbody[@id='fileList']//tr")
+    public List<WebElement> allFileList;
+
+    @FindBy (xpath = "(//tbody[@id='fileList']//tr//td[@class='filesize'])[1]")
+    public List<WebElement> allFileList_size;
+
+    @FindBy (xpath = "//tbody[@id='fileList']//tr//td[@class='date']//span")
+    public List<WebElement> allFileList_Modified;
+
+    @FindBy (xpath = "(//span[.='Modified'])[1]")
+    public WebElement modified_button;
+
+    //convert sizes to KB
+    public long convertToKB(String sizeStr) {
+        if (sizeStr.contains("KB")) {
+            return Long.parseLong(sizeStr.replace("KB", "").trim());
+        } else if (sizeStr.contains("MB")) {
+            return Long.parseLong(sizeStr.replace("MB", "").trim()) * 1024;
+        }
+        return Long.MAX_VALUE;
+    }
+
+    //convert all times to seconds
+    public long convertToSeconds(String timeStr) {
+        timeStr = timeStr.trim();
+
+        if (timeStr.equalsIgnoreCase("an hour ago"))
+            return 3600;
+        if (timeStr.contains("hours")) {
+            long hours = Long.parseLong(timeStr.split(" ")[0]);
+            return hours * 3600;
+        }
+        if (timeStr.contains("days")) {
+            long days = Long.parseLong(timeStr.split(" ")[0]);
+            return days * 24 * 3600;
+        }
+        if (timeStr.contains("months")) {
+            long months = Long.parseLong(timeStr.split(" ")[0]);
+            return months * 30 * 24 * 3600;
+        }
+        if (timeStr.contains("years")) {
+            long years = Long.parseLong(timeStr.split(" ")[0]);
+            return years * 24 * 3600 * 365;
+        }
+        return Long.MAX_VALUE; //for unknown format
+    }
+
+
+
+/*
+    //get the list of sizes
+    public List<Long> listOfSizes_Long( List<String> list) {
+
+        List<Long> list_Long = new ArrayList<>();
+
+       // get the size as Long
+
+        for (String each : list) {
+
+
+            if (each != null && each.isEmpty()) {
+                try {
+                    Long each_Long = Long.parseLong(each);
+                    list_Long.add(each_Long);
+
+
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid number format: " + each);
+                }
+            } else {
+                System.out.println("Skipping null or empty value");
+            }
+        }
+        return list_Long;
+
+    }*/
 }
