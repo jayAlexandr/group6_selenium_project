@@ -6,211 +6,199 @@
 #3.User can move or copy any selected item to any folder and see the item in the selected folder
 #4.User can delete any selected item from its three dots menu
 #5.User can see the total number of files and folders under the files list table
+
 @fileModule
 Feature: Upload/Edit/Delete File Module Functionality
 
   Background: For all scenarios user is on the Files Module page of the TRYCLOUD application
     Given user is successfully logged in
-    Then user should see the dashboard
-    When user navigate to files module
-    Then user verify files module page is displayed
+    When user should see the dashboard
+    And user navigates to files module
+    Then user verifies files module page is displayed
 
-    #1.User can upload a file
+  #AC1 - User can upload a file
   #========================================================================
 
-  @uploadFile
-  Scenario: Upload a valid 1MB.txt file
-    When user click on the plus button
-    And user upload "1MB.txt" file from the computer
-    Then user verify uploaded 1MB.text file is visible under the item list
+  @ac1
+  Scenario Outline: Upload a valid "<file_name>" and verify it's visible
+    When user clicks on the plus button
+    And user upload "<file_key>" file from the computer
+    Then user verifies item "<file_name>" is visible under the item list
 
-  @uploadFile
-  Scenario: Upload a valid 2MB.jpg file
-    When user click on the plus button
-    And user upload "2MB.jpg" file from the computer
-    Then user verify uploaded 2MB.jpg file is visible under the item list
+    Examples:
+      | file_key      | file_name                  |
+      | file_1mb_txt  | 1mb-examplefile.txt        |
+      | file_2mb_jpg  | 2mb-jpg-test-file.jpg      |
+      | file_3mb_pdf  | 3-mb-sample-pdf-file.pdf   |
+      | file_4mb_png  | 4mb.png                    |
+      | file_5mb_docx | 5mb.docx                   |
+      | file_6mb_mp4  | 6mb-example-video-file.mp4 |
+      | file_7mb_zip  | 7mb.zip                    |
+      | file_8mb_rar  | 8mb.rar                    |
+      | file_9mb_iso  | 9mb.iso                    |
 
-  @uploadFile
-  Scenario: Upload a valid 3MB.pdf file
-    When user click on the plus button
-    And user upload "3MB.pdf" file from the computer
-    Then user verify uploaded 3MB.pdf file is visible under the item list
-
-  @uploadFile
-  Scenario: Upload a valid 4MB.png file
-    When user click on the plus button
-    And user upload "4MB.png" file from the computer
-    Then user verify uploaded 4MB.png file is visible under the item list
-
-  @uploadFile
-  Scenario: Upload a valid 5MB.docx file
-    When user click on the plus button
-    And user upload "5MB.docx" file from the computer
-    Then user verify uploaded 5MB.docx file is visible under the item list
-
-  @uploadFile
-  Scenario: Upload a valid 6MB.mp4 file
-    When user click on the plus button
-    And user upload "6MB.mp4" file from the computer
-    Then user verify uploaded 6MB.mp4 file is visible under the item list
-
-  @uploadFile
-  Scenario: Upload a valid 7MB.zip file
-    When user click on the plus button
-    And user upload "7MB.zip" file from the computer
-    Then user verify uploaded 7MB.zip file is visible under the item list
-
-  @uploadFile
-  Scenario: Upload a valid 8MB.rar file
-    When user click on the plus button
-    And user upload "8MB.rar" file from the computer
-    Then user verify uploaded 8MB.rar file is visible under the item list
-
-  @uploadFile
-  Scenario: Upload a valid 9MB.iso file
-    When user click on the plus button
-    And user upload "9MB.iso" file from the computer
-    Then user verify uploaded 9MB.iso file is visible under the item list
-
-  @uploadFile
+  @ac1
   Scenario: Upload a valid 10MB file
-    When user click on the plus button
-    And user upload "10MB.jpg" file from the computer
+    When user clicks on the plus button
+    And user upload "file_10mb_jpg" file from the computer
     Then user verify message "Operation is blocked by access control" is displayed
 
-  @uploadFile
+  @ac1
   Scenario: Upload multiple files at once
-    When user click on the plus button
-    And user upload "File1.txt" and "File2.txt" files from the computer
-    Then user verify uploaded multiple files are visible under the item list
+    When user clicks on the plus button
+    And user upload "file_text_1" and "file_text_2" files from the computer
+    Then user verify files "textFile1.txt" and "textFile2.txt" are displayed
 
-  @uploadFile
-  Scenario: upload duplicate file with existing file name
-    When user click on the plus button
-    And user upload "File1.txt" file from the computer
+  @ac1
+  Scenario: Upload duplicate file with existing file name
+    When user clicks on the plus button
+    And user upload "file_text_1" file from the computer
     Then user verify popup window with warning message is displayed
 
-    #2.User can create a new folder
+  #AC2 - User can create a new folder
   #========================================================================
 
-  @createFolder
+  @ac2
   Scenario: Create a new folder using arrow button
-    When user click on the plus button
-    And user click on the New folder in submenu
-    And user enter New folder name
-    And user click on arrow button
+    When user clicks on the plus button
+    And user clicks on the New folder in submenu
+    And user enter "GR6" new folder name
+    And user clicks on arrow button
     Then user verify created New folder is displayed under the item list
 
-  @createFolder
+  @ac2
   Scenario: Create a new folder using Enter key
-    When user click on the plus button
-    And user click on the New folder in submenu
+    When user clicks on the plus button
+    And user clicks on the New folder in submenu
     And user enter New folder name and press Enter key
     Then user verify created New folder is displayed under the item list
 
-  @createFolder
+  @ac2
   Scenario: Create new folder with an existing name
-    When user click on the plus button
-    And user click on the New folder in submenu
+    When user clicks on the plus button
+    And user clicks on the New folder in submenu
     And user enter New folder name and press Enter key
     Then user verify warning message "already exists" is displayed
 
-  @createFolder
+  @ac2
   Scenario: Create new folder with empty name
-    When user click on the plus button
-    And user click on the New folder in submenu
+    When user clicks on the plus button
+    And user clicks on the New folder in submenu
     And user clear the input field and press Enter
     Then user verify warning message "cannot be empty" is displayed
 
-  @createFolder
+  @ac2
   Scenario: Create new folder with specials characters in name
-    When user click on the plus button
-    And user click on the New folder in submenu
+    When user clicks on the plus button
+    And user clicks on the New folder in submenu
     And user enter New folder name with special characters and press Enter key
     Then user verify New folder with specChar is displayed under the item list
 
-  @createFolder
+  @ac2
   Scenario: Create new folder with Backslash in name
-    When user click on the plus button
-    And user click on the New folder in submenu
+    When user clicks on the plus button
+    And user clicks on the New folder in submenu
     And user enter New folder name with Backslash and press Enter key
     Then user verify message "Could not create folder" is displayed
 
-  @createFolder
+  @ac2
   Scenario: Create new folder with Forward Slash in name
-    When user click on the plus button
-    And user click on the New folder in submenu
+    When user clicks on the plus button
+    And user clicks on the New folder in submenu
     And user enter New folder name with Forward Slash and press Enter key
     Then user verify warning message "is not allowed" is displayed
 
-  #3 - User can move or copy any selected item to any folder
-  #    and see the item in the selected folder
+  #AC3 - User can move or copy any selected item to any folder
+  #      and see the item in the selected folder
   #========================================================================
 
-  @moveCopy
+  @ac3
   Scenario: Move an item to a folder
-    When user click on ThreeDot menu alongside an item which want to move
-    And  user click on MoveOrCopy
-    And user click on selected folder
-    And user click on MoveTo button
-    Then user navigate to selected folder and verify item is displayed
+    When user clicks on "textFile1.txt" Three Dot menu
+    And  user clicks on MoveOrCopy
+    And user clicks on selected folder
+    And user clicks on MoveTo button
+    Then user navigates to selected folder and verify item is displayed
 
-  @moveCopy
+  @ac3
   Scenario: Copy an item to a folder
-    When user click on ThreeDot menu alongside an item which want to copy
-    And user click on MoveOrCopy
-    And user click on selected folder
-    And user click on CopyTo button
-    Then user navigate to selected folder and verify item is displayed
+    When user clicks on "4mb.png" Three Dot menu
+    And user clicks on MoveOrCopy
+    And user clicks on selected folder
+    And user clicks on CopyTo button
+    Then user navigates to selected folder and verify item is displayed
 
-  @moveCopy
+  @ac3
   Scenario: Move an item that already exists in the folder
-    When user click on ThreeDot menu alongside an existing item which want to move
-    And user click on MoveOrCopy
-    And user click on selected folder
-    And user click on MoveTo button
+    When user clicks on "4mb.png" Three Dot menu
+    And user clicks on MoveOrCopy
+    And user clicks on selected folder
+    And user clicks on MoveTo button
     Then user verify message "Could not move" is displayed
 
-  @moveCopy
+  @ac3
   Scenario: Copy an item that already exists in the folder
-    When user click on ThreeDot menu alongside an existing item which want to copy
-    And user click on MoveOrCopy
-    And user click on selected folder
-    And user click on CopyTo button
+    When user clicks on "4mb.png" Three Dot menu
+    And user clicks on MoveOrCopy
+    And user clicks on selected folder
+    And user clicks on CopyTo button
     Then user verify message "Could not copy" is displayed
 
-  @moveCopy
+  @ac3
   Scenario: Move multiple items at once
-    When user marks CheckBoxes of items which wants to move
-    And user click on Actions button
-    And user click on MoveOrCopy button
-    And user click on selected folder
-    And user click on MoveTo button
-    Then user navigate to selected folder and verify moved items are displayed
+    When user marks CheckBoxes "textFile2.txt" and "1mb-examplefile.txt" of items
+    And user clicks on Actions button
+    And user clicks on MoveOrCopy button
+    And user clicks on selected folder
+    And user clicks on MoveTo button
+    Then user navigates to selected folder and verify "textFile2.txt" and "1mb-examplefile.txt" are displayed
 
-  @moveCopy
+  @ac3
   Scenario: Copy multiple items at once
-    When user marks CheckBoxes of items which wants to copy
-    And user click on Actions button
-    And user click on MoveOrCopy button
-    And user click on selected folder
-    And user click on CopyTo button
-    Then user navigate to selected folder and verify copied items are displayed
+    When user marks CheckBoxes "8mb.rar" and "9mb.iso" of items
+    And user clicks on Actions button
+    And user clicks on MoveOrCopy button
+    And user clicks on selected folder
+    And user clicks on CopyTo button
+    Then user navigates to selected folder and verify "8mb.rar" and "9mb.iso" are displayed
 
-  #4 - User can delete any selected item from its three dots menu
-  #========================================================================
+  #AC4 - User can delete any selected item from its three dots menu
+  #================================================================================
 
-  @delete
+  @ac4 @inTest
   Scenario: Delete an item
-    When user click on ThreeDot menu alongside an item which want to delete
-    And user click on DeleteFile
-    And user navigate to Deleted files
-    Then user verify deleted item is displayed under the deleted item list
+    When user clicks on "7mb.zip" Three Dot menu
+    And user clicks on Delete File
+    And user navigates to Deleted files
+    Then user verify deleted "7mb.zip" file is displayed under the deleted item list
 
-  @delete @inTest
+  @ac4
   Scenario: Delete multiple items at once
-    When user marks CheckBoxes of items which wants to delete
-    And user click on Actions button
-    And user click on Delete button
-    And user navigate to Deleted files
-    Then user verify deleted items is displayed under the deleted item list
+    When user marks CheckBoxes "5mb.docx" and "6mb-example-video-file.mp4" of items
+    And user clicks on Actions button
+    And user clicks on Delete button
+    And user navigates to Deleted files
+    Then user verify files "5mb.docx" and "6mb-example-video-file.mp4" are displayed under the deleted item list
+
+  #AC5 - User can see the total number of files and folders under the files list table
+  #====================================================================================
+
+  @ac5
+  Scenario: Verify the total number of files and folders
+    When user navigates to the bottom of the item list
+    Then user verify the total number of items should be displayed correctly
+
+  @ac5
+  Scenario: Verify the total number of files and folders after adding the item
+    When user clicks on the plus button
+    And user upload "file_text_3" file from the computer
+    And user navigates to the bottom of the item list
+    Then user verify the total number of items should be displayed correctly
+
+  @ac5
+  Scenario: Verify the total number of files and folders after deleting the item
+    When user marks CheckBox of "textFile3.txt" file
+    And user clicks on Actions button
+    And user clicks on Delete button
+    And user navigates to the bottom of the item list
+    Then user verify the total number of items should be displayed correctly

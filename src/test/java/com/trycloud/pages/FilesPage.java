@@ -13,8 +13,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class FilesPage extends BasePage{
 
@@ -129,12 +131,15 @@ public class FilesPage extends BasePage{
     public void messageIsDisplayed(WebElement element, String expectedMessage) {
         BrowserUtils.waitForVisibility(element, 20);
         Assert.assertTrue(element.getText().contains(expectedMessage));
+
     }
 
     public WebElement getThreeDotMenu(String fileName) {
         String xpath = "//tr[@data-file='" + fileName + "']//a[@data-action='menu']";
         return Driver.getDriver().findElement(By.xpath(xpath));
     }
+
+
 
     public WebElement getCheckBox(String fileName) {
         String xpath = "//tr[@data-file='" + fileName + "']/td[@class='selection']";
@@ -300,6 +305,7 @@ public class FilesPage extends BasePage{
 
 
 
+
     // FatimaZahra
     @FindBy (xpath = "(//span[.='Name'])[1]")
     public WebElement nameOrder_Icon;
@@ -374,6 +380,7 @@ public class FilesPage extends BasePage{
        // get the size as Long
 
         for (String each : list) {
+
 
             if (each != null && each.isEmpty()) {
                 try {
