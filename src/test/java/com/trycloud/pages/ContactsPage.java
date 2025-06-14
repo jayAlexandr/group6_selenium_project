@@ -2,12 +2,14 @@ package com.trycloud.pages;
 
 import com.trycloud.utilities.BrowserUtils;
 import com.trycloud.utilities.Driver;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ContactsPage {
 
@@ -21,6 +23,9 @@ public class ContactsPage {
 
     @FindBy(id = "contact-fullname")
     public WebElement newContactName_Box;
+
+    @FindBy(xpath = "//a[@class='header-icon icon-error header-icon--pulse has-tooltip']")
+    public WebElement errorMessage;
 
     @FindBy(id = "contact-org")
     public WebElement newContact_CompanyBox;
@@ -95,6 +100,88 @@ public class ContactsPage {
     public boolean isContactDisplayed(int sizeOfList, int counterList) {
 
         return sizeOfList == counterList;
+    }
+
+    //verify if a contact exist in the list
+
+    public boolean isExistingInList(List<String> list, String contactName){
+
+        boolean isDisplayed = false;
+
+        if (list == null || list.isEmpty() || contactName == null) {
+            return false;
+        }
+
+        for (String each : list) {
+
+            if (each.equals(contactName)){
+
+                isDisplayed = true;
+            }
+        }
+
+        return isDisplayed;
+
+    }
+
+    //return how many contacts with same name
+    public int calculateDuplicateContact(List<String> list, String contactName){
+
+        int counter = 0;
+
+        if (list == null || list.isEmpty() || contactName == null) {
+            return counter;
+        }
+
+        for (String each : list) {
+
+            if (each.equals(contactName)){
+
+                counter++;
+            }
+        }
+
+        return counter;
+
+    }
+    // invalidName to validName
+    public String toProcessedName(String invalidName) {
+        if (invalidName == null) {
+            return "";
+        }
+
+        switch(invalidName) {
+            case "\\name":
+                return Keys.BACK_SPACE + "name";
+
+            case "Name\\nWithNewline":  // Standardized format
+                return "Name" + Keys.RETURN + "WithNewline";
+
+            case "#{'A' * 500}":
+                return new String(new char[500]).replace("\0", "A");
+
+            case "\"\"":  // Explicit empty string case
+                return "";
+
+            case "\"   \"":  // Whitespace case
+                return "   ";
+
+            default:
+                // Handle other special patterns or return as-is
+                return invalidName;
+        }
+    }
+
+    //verify if a message is displayed
+    public boolean isErrorMessageDisplayed(WebElement errorElement, String errorMessageText) {
+        try {
+
+            return errorElement.isDisplayed() &&
+                    errorElement.getAttribute("class").contains(errorMessageText);
+
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 
     // get the groups' names in the first column

@@ -9,17 +9,42 @@ Feature: Contacts Module Functionality
     Given user is successfully logged in
     And user clicks the Contacts Tab
 
-  @AddNewContacts
+  @AddNewContact @Positive
   Scenario Outline: Create new contacts
     When user clicks the New contact button
-    And user enters "<fullName>" of the new contact
+    And user enters "<validName>" of the new contact
     Then user can see "<expectedName>" in the All contacts list
-
     Examples:
-      | fullName   | expectedName |
-      | Adam Smith | Adam Smith   |
-      | Sarah K    | Sarah K      |
-      | John LP    | John LP      |
+      | validName      | expectedName   |
+      | Adam Smith     | Adam Smith     |
+      | Sarah          | Sarah          |
+      | 12345          | 12345          |
+      | @gmail.com     | @gmail.com     |
+      | John Doe-Jr    | John Doe-Jr    |
+      | Alice  DL      | Alice DL       |
+      | Élève Français | Élève Français |
+      | #{'A' * 500}   | #{'A' * 500}   |
+
+  @AddNewContact @Negative
+  Scenario: System rejects an empty contact name
+    When user clicks the New contact button
+    And user attempts to create contact empty
+    Then user couldn't see empty contact in the all contact list
+    And the system should immediately show an errorMessage
+
+  @AddNewContact @Negative
+  Scenario: System rejects a whitespace-only contact name
+    When user clicks the New contact button
+    And user attempts to create contact space
+    Then user couldn't see space in the all contact list
+    And the system should immediately show an errorMessage
+
+  @AddNewContact @Negative
+  Scenario: Prevent duplicate contacts
+    Given a contact "Adam Smith" already exists
+    When user tries to create another contact "Adam Smith"
+    Then only one "Adam Smith" should exist in the list
+
 
   @changeProfileImage
   Scenario: User can change the profile picture of any contact
