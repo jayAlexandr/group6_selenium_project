@@ -16,6 +16,8 @@ public class BasePage {
 
     @FindBy(xpath = "//a[@href='/index.php/settings/user']")
     public WebElement userSettings;
+    @FindBy(xpath = "//li[@data-id='logout']")
+    public WebElement logOutButton;
 
     @FindBy(xpath = "//li[@data-id='files']")
     public WebElement filesModuleButton;
